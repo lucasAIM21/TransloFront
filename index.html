@@ -6,47 +6,48 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <div class="contenedor">
         <h2>Ingreso de Datos</h2>
 
         <form class="formulario" id="formulario">
-            <input type="text" name="dato1" placeholder="Dato 1">
-            <input type="text" name="dato2" placeholder="Dato 2">
-            <input type="text" name="dato3" placeholder="Dato 3">
-            <input type="text" name="dato4" placeholder="Dato 4">
-            <input type="text" name="dato5" placeholder="Dato 5">
-            <input type="text" name="dato6" placeholder="Dato 6">
-            <input type="text" name="dato7" placeholder="Dato 7">
-            <input type="text" name="dato8" placeholder="Dato 8">
-            <input type="text" name="dato9" placeholder="Dato 9">
-            <input type="text" name="dato10" placeholder="Dato 10">
+            <input type="datetime-local" name="Fecha" placeholder="Fecha">
+            <input type="text" name="Origen" placeholder="Origen">
+            <input type="text" name="Destino" placeholder="Destino">
+            <input type="text" name="Cliente" placeholder="Cliente">
+            <input type="text" name="Carga" placeholder="Carga">
+            <input type="text" name="Flete" placeholder="Flete">
+            <input type="text" name="GRR" placeholder="GRR">
+            <input type="text" name="GRT" placeholder="GRT">
+            <input type="text" name="Combustible" placeholder="Combustible">
+            <input type="text" name="GastosVarios" placeholder="Gastos Varios">
+            <input type="text" name="Viaticos" placeholder="Viáticos">
+
             <div class="btnGuardar">
                 <button type="submit">Guardar</button>
             </div>
         </form>
-        
-
-        <h3>Tabla de Datos</h3>
 
         <table>
             <thead>
                 <tr>
-                    <th>Col 1</th>
-                    <th>Col 2</th>
-                    <th>Col 3</th>
-                    <th>Col 4</th>
-                    <th>Col 5</th>
-                    <th>Col 6</th>
-                    <th>Col 7</th>
-                    <th>Col 8</th>
-                    <th>Col 9</th>
-                    <th>Col 10</th>
+                    <th>Fecha</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Cliente</th>
+                    <th>Carga</th>
+                    <th>Flete</th>
+                    <th>GRR</th>
+                    <th>GRT</th>
+                    <th>Combustible</th>
+                    <th>Gastos Varios</th>
+                    <th>Viáticos</th>
                 </tr>
             </thead>
             <tbody id="tablaDatos">
+                <!-- filas dinámicas -->
             </tbody>
         </table>
+
     </div>
 <script src="./js.js"></script>
 </body>

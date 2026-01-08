@@ -49,7 +49,7 @@ function ValidarCampos() {
     return true;
 }
 
-async function RellenarTabla() {
+ async function RellenarTabla() {
     await CargarDatos();
     const tbody = document.getElementById("tablaDatos");
     tbody.innerHTML = ""; // limpiar tabla
@@ -57,15 +57,31 @@ async function RellenarTabla() {
     datos.forEach(dato => {
         const tr = document.createElement("tr");
 
-        for (let i = 1; i <= 10; i++) {
+        // Lista de campos según tu tabla
+        const campos = [
+            "Fecha",
+            "Origen",
+            "Destino",
+            "Cliente",
+            "Carga",
+            "Flete",
+            "GRR",
+            "GRT",
+            "Combustible",
+            "GastosVarios",
+            "Viaticos"
+        ];
+
+        campos.forEach(campo => {
             const td = document.createElement("td");
-            td.textContent = dato[`dato${i}`] ?? "";
+            td.textContent = dato[campo] ?? "";
             tr.appendChild(td);
-        }
+        });
 
         tbody.appendChild(tr);
     });
 }
+
 
 async function init(){
     await RellenarTabla();
