@@ -49,8 +49,8 @@ function ValidarCampos() {
     return true;
 }
 
-function RellenarTabla() {
-    CargarDatos();
+async function RellenarTabla() {
+    await CargarDatos();
     const tbody = document.getElementById("tablaDatos");
     tbody.innerHTML = ""; // limpiar tabla
 
