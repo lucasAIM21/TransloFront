@@ -16,19 +16,18 @@ async function CargarDatos() {
 }
 
 form.addEventListener("submit", async (e)=>{
-    //Validacion Primero
+    e.preventDefault();
+
     if(!ValidarCampos()){
         alert("Complete todos los campos")
     }
-
-    e.preventDefault();
 
     const data = Object.fromEntries(new FormData(form));
 
     try {
         await fetch(`${API_URL}/api/datos`, {
             method: "POST",
-            headers: {"content-type ":"application/json"},
+            headers: {"content-type":"application/json"},
             body: JSON.stringify(data)
         });
     } catch (error) {
