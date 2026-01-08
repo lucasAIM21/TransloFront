@@ -68,7 +68,7 @@ function RellenarTabla() {
 }
 
 async function init(){
-    await CargarDatos();
+    await RellenarTabla();
 }
 
 init();
