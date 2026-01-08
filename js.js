@@ -33,7 +33,7 @@ form.addEventListener("submit", async (e)=>{
     } catch (error) {
         console.error("Error al subir los datos: ",error)
     }
-    CargarDatos();
+    RellenarTabla();
 });
 
 function ValidarCampos() {
@@ -47,6 +47,24 @@ function ValidarCampos() {
     }
 
     return true;
+}
+
+function RellenarTabla() {
+    CargarDatos();
+    const tbody = document.getElementById("tablaDatos");
+    tbody.innerHTML = ""; // limpiar tabla
+
+    datos.forEach(dato => {
+        const tr = document.createElement("tr");
+
+        for (let i = 1; i <= 10; i++) {
+            const td = document.createElement("td");
+            td.textContent = dato[`dato${i}`] ?? "";
+            tr.appendChild(td);
+        }
+
+        tbody.appendChild(tr);
+    });
 }
 
 async function init(){
