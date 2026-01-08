@@ -33,6 +33,7 @@ form.addEventListener("submit", async (e)=>{
     } catch (error) {
         console.error("Error al subir los datos: ",error)
     }
+    CargarDatos();
 });
 
 function ValidarCampos() {
