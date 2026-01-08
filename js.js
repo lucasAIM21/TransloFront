@@ -75,6 +75,7 @@ function ValidarCampos() {
         campos.forEach(campo => {
             const td = document.createElement("td");
             td.textContent = dato[campo] ?? "";
+            td.setAttribute("data-label", campo);
             tr.appendChild(td);
         });
 
