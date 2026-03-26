@@ -2,45 +2,156 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Ingreso de Datos</title>
+    <title>a</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="contenedor">
-        <h2>Ingreso de Datos</h2>
+        <h2>TRANSLOGISTICA</h2>
+        <br>
+        <div class="btnCentrado">
+            <button type="submit" id="btnAgregar">Agregar</button>
+        </div>
+        <br>
+        <!-- FORMULARIO -->
+        <div id="ModalDatos" class="ModalDatos ModalOculto">
+            <div class="ModalCaja">
+                <h2>Agregar Datos</h2>
+                <div class="btnCentrado">
+                    <button id="btnDatos" class="btnForm">Datos</button>
+                    <button id="btnGuias" class="btnForm">Guias</button>
+                    <button id="btnGastos" class="btnForm">Gastos</button>
+                </div>
+                <form class="formulario" id="formulario">
 
-        <form class="formulario" id="formulario">
-            <input type="datetime-local" name="Fecha" placeholder="Fecha">
-            <input type="text" name="Origen" placeholder="Origen">
-            <input type="text" name="Destino" placeholder="Destino">
-            <input type="text" name="Cliente" placeholder="Cliente">
-            <input type="text" name="Carga" placeholder="Carga">
-            <input type="text" name="Flete" placeholder="Flete">
-            <input type="text" name="GRR" placeholder="GRR">
-            <input type="text" name="GRT" placeholder="GRT">
-            <input type="text" name="Combustible" placeholder="Combustible">
-            <input type="text" name="GastosVarios" placeholder="Gastos Varios">
-            <input type="text" name="Viaticos" placeholder="Viáticos">
+                    <div id="DatosForm">
+                        <input type="datetime-local" name="Fecha" placeholder="Fecha">
+                        <input type="text" name="Origen" placeholder="Origen">
+                        <input type="text" name="Destino" placeholder="Destino">
+                        <input type="text" name="Cliente" placeholder="Cliente">
+                        <input type="text" name="Carga" placeholder="Carga">
+                        <input type="text" name="Flete" placeholder="Flete">
+                        <input type="text" name="GastosVarios" placeholder="Gastos Varios">
+                        <input type="text" name="Viaticos" placeholder="Viáticos">    
+                    </div>
 
-            <div class="btnGuardar">
-                <button type="submit">Guardar</button>
+                    <div id="GuiasForm" class="ModalOculto">
+                        <div style="display: flex;">
+                            <h3 class="titulo-remitente">
+                                G.R. Remitente
+                                <input id="txtGRR" type="text" style="width: 200px;">
+                                <button id="btnAgregarGRR" type="button" class="btn-plus">+</button>
+                            </h3>
+                        </div>
+                        <div id="LGRR" class="ListaGuias ModalOculto">
+                            <ul id="ListaGRR">
+                                <!-- Se Agregan GRR Dinamicamente a la lista -->
+                            </ul>           
+                        </div>
+                        <div style="display: flex;">
+                            <h3 class="titulo-remitente">
+                                G.R. Transportista
+                                <input id="txtGRT" type="text" style="width: 200px;">
+                                <button id="btnAgregarGRT" type="button" class="btn-plus">+</button>
+                            </h3>
+                        </div>
+                        <div id="LGRT" class="ListaGuias ModalOculto">
+                            <ul id="ListaGRT">
+                                <!-- Se Agregan GRT Dinamicamente a la lista -->
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="GastosForm" class="ModalOculto">
+                        <input type="text" name="Combustible" placeholder="Combustible">
+                    </div>
+                </form>
+
+                    <div class="btnCentrado">
+                        <button type="submit">Guardar</button>
+                        <button id="btnCancelar" type="button">Cancelar</button>
+                    </div>
             </div>
-        </form>
+        </div>
+
+        <!-- (TABLA) Contenedores para datos dinámicos -->
+        <div id="ContenedorDatos" class="ContenedorDatos ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <h3>Datos</h3>
+                <div>
+                    Fecha: <span id="fecha" style="margin-right: 10px;"></span>
+                    <br>
+                    Origen: <span id="origen" style="margin-right: 10px;"></span>
+                    <br>
+                    Destino: <span id="destino" style="margin-right: 10px;"></span>
+                    <br>
+                    Cliente: <span id="cliente" style="margin-right: 10px;"></span>
+                    <br>
+                    Carga: <span id="carga" style="margin-right: 10px;"></span>
+                    <br>
+                    Flete: <span id="flete" style="margin-right: 10px;"></span>
+                    <br>
+                    Viaticos: <span id="viaticos" style="margin-right: 10px;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="ContenedorGuias" class="ContenedorGuias ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <div>
+                    <h3>Guias</h3>
+                    <div style="margin-right: 10px; font-weight: bold;">GRR:</div>
+                    <ul id="ListaGRR" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de GRR dinámicos -->
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">GRT:</div>
+                    <ul id="ListaGRT" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de GRT dinámicos -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="ContenedorGastos" class="ContenedorGastos ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <h3>Gastos</h3>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Combustible:</div>
+                    <ul id="ListaCombustible" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Combustible dinámicos -->
+                         <li>Galones: <span id="SpanGalones" style="margin-right: 10px;"></span></li>
+                         <li>Precio por Galon: <span id="SpanPrecioUnit" style="margin-right: 10px;"></span></li>
+                         <li>Precio Pagado: <span id="SpanPago" style="margin-right: 10px;"></span></li>
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Peajes:</div>
+                    <ul id="ListaPeaje" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Peajes dinámicos -->
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Gastos Varios:</div>
+                    <ul id="ListaGastosVarios" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Gastos Varios dinámicos -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!---->
 
         <table>
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Origen</th>
-                    <th>Destino</th>
-                    <th>Cliente</th>
-                    <th>Carga</th>
-                    <th>Flete</th>
-                    <th>GRR</th>
-                    <th>GRT</th>
-                    <th>Combustible</th>
-                    <th>Gastos Varios</th>
-                    <th>Viáticos</th>
+                    <th>Datos</th>
+                    <th>Guias</th>
+                    <th>Gastos</th>
                 </tr>
             </thead>
             <tbody id="tablaDatos">
