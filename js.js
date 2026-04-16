@@ -1,4 +1,4 @@
-const API_URL = "http://laimserver.duckdns.org";
+const API_URL = "https://laimserver.duckdns.org";
 
 let datos = [];
 const form=document.getElementById("formulario");
