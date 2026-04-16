@@ -133,35 +133,35 @@ th {
     cursor: pointer;
 }
 
-.ListaGuias {
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    max-width: 400px;
+.tabla-compacta {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Lista interna */
-.ListaGuias ul {
-    list-style: none;
-    padding: 0;
+.tabla-compacta td,
+.tabla-compacta th {
+    padding: 4px 8px;      /* Reduce espacio vertical */
+    line-height: 1.2;       /* Reduce altura de línea */
+    font-size: 14px;        /* Opcional: texto más pequeño */
+}
+
+.tabla-compacta tr {
+    height: auto;           /* Elimina altura fija */
+}
+
+.btn-compacto {
+    padding: 2px 6px;
     margin: 0;
-}
-
-/* Cada elemento */
-.ListaGuias li {
-    padding: 8px 10px;
-    margin-bottom: 6px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     font-size: 14px;
+    line-height: 1;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
-/* Efecto hover opcional */
-.ListaGuias li:hover {
-    background-color: #f1f1f1;
+.btn-compacto:hover {
+    background-color: #f0f0f0;
 }
 
 /* ===== RESPONSIVE ===== */

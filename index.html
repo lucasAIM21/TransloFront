@@ -25,56 +25,104 @@
                 <form class="formulario" id="formulario">
 
                     <div id="DatosForm">
-                        <input type="datetime-local" name="Fecha" placeholder="Fecha">
-                        <input type="text" name="Origen" placeholder="Origen">
-                        <input type="text" name="Destino" placeholder="Destino">
-                        <input type="text" name="Cliente" placeholder="Cliente">
-                        <input type="text" name="Carga" placeholder="Carga">
-                        <input type="text" name="Flete" placeholder="Flete">
-                        <input type="text" name="GastosVarios" placeholder="Gastos Varios">
-                        <input type="text" name="Viaticos" placeholder="Viáticos">    
+                        <input id="Fecha" type="datetime-local" name="Fecha" placeholder="Fecha">
+                        <input id="Origen" type="text" name="Origen" placeholder="Origen">
+                        <input id="Destino" type="text" name="Destino" placeholder="Destino">
+                        <input id="Cliente" type="text" name="Cliente" placeholder="Cliente">
+                        <input id="Carga" type="text" name="Carga" placeholder="Carga">
+                        <input id="Flete" type="text" name="Flete" placeholder="Flete">
+                        <input id="Viatico" type="text" name="Viatico" placeholder="Viáticos">    
                     </div>
 
                     <div id="GuiasForm" class="ModalOculto">
-                        <div style="display: flex;">
+                        <!-- G.R. Remitente -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
                             <h3 class="titulo-remitente">
                                 G.R. Remitente
                                 <input id="txtGRR" type="text" style="width: 200px;">
                                 <button id="btnAgregarGRR" type="button" class="btn-plus">+</button>
                             </h3>
+                            <div id="LGRR" class="ModalOculto">
+                                <table id="ListaGRRPOST" class="tabla-compacta">
+                                    <thead>
+                                        <tr>
+                                            <th>GRR</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGRR">
+                                        <!-- Se Agregan GRR Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div id="LGRR" class="ListaGuias ModalOculto">
-                            <ul id="ListaGRR">
-                                <!-- Se Agregan GRR Dinamicamente a la lista -->
-                            </ul>           
-                        </div>
-                        <div style="display: flex;">
+
+                        <!-- G.R. Transportista -->
+                        <div style="display: flex; flex-direction: column;">
                             <h3 class="titulo-remitente">
                                 G.R. Transportista
                                 <input id="txtGRT" type="text" style="width: 200px;">
                                 <button id="btnAgregarGRT" type="button" class="btn-plus">+</button>
                             </h3>
-                        </div>
-                        <div id="LGRT" class="ListaGuias ModalOculto">
-                            <ul id="ListaGRT">
-                                <!-- Se Agregan GRT Dinamicamente a la lista -->
-                            </ul>
+                            <div id="LGRT" class="ModalOculto">
+                                <table id="ListaGRTPOST" class="tabla-compacta">
+                                    <thead>
+                                        <tr>
+                                            <th>GRT</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGRT">   
+                                        <!-- Se Agregan GRT Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     
                     <div id="GastosForm" class="ModalOculto">
-                        <input type="text" name="Combustible" placeholder="Combustible">
+                        <div>
+                            Combustible:
+                            <input type="text" id="Galones" placeholder="Combustible (Galones)">
+                            <input type="number" id="PrecioGalon" placeholder="Precio por Galon">    
+                        </div>
+                        <div>
+                            Peajes:
+                            <input id="Ubicacion" type="text" placeholder="Ubicación">
+                            <input id="Costo" type="number" placeholder="Costo">
+                            <button id="btnAgregarPeaje" type="button" class="btn-plus">+</button>
+                            <div id="ListaPeajes" class="ListaPeajes">
+                                <ul id="ListaPeajesPOST">
+                                    <!-- Se Agregan Peajes Dinamicamente a la lista -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            Gastos Varios:
+                            <input id="Descripcion" type="text" placeholder="Descripción">
+                            <input id="Monto" type="number" placeholder="Costo">
+                            <button id="btnAgregarGasto" type="button" class="btn-plus">+</button>
+                            <div id="ListaGastosVarios" class="ListaGastosVarios">
+                                <ul id="ListaGastosPOST">
+                                    <!-- Se Agregan Gastos Varios Dinamicamente a la lista -->
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </form>
-
                     <div class="btnCentrado">
-                        <button type="submit">Guardar</button>
+                        <div id="DivBtnGuardar" class="ModalOculto">
+                            <button id="btnGuardar" type="submit">Guardar</button>
+                        </div>
+                        <div id="DivBtnEditar" class="ModalOculto">
+                            <button id="btnEditar" type="button">Editar</button>
+                        </div >
                         <button id="btnCancelar" type="button">Cancelar</button>
                     </div>
+                </form>
             </div>
         </div>
 
-        <!-- (TABLA) Contenedores para datos dinámicos -->
+        <!-- Cntenedores de vista de los datos -->
         <div id="ContenedorDatos" class="ContenedorDatos ModalOculto">
             <div class="ModalCaja">
                 <button class="btnCerrar btnCerrarJS">X</button>
@@ -137,7 +185,7 @@
                 </div>
                 <div>
                     <div style="margin-right: 10px; font-weight: bold;">Gastos Varios:</div>
-                    <ul id="ListaGastosVarios" style="margin:0; padding:0; list-style:none;">
+                    <ul id="ListaGV" style="margin:0; padding:0; list-style:none;">
                         <!-- Elementos de Gastos Varios dinámicos -->
                     </ul>
                 </div>
@@ -152,6 +200,7 @@
                     <th>Datos</th>
                     <th>Guias</th>
                     <th>Gastos</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="tablaDatos">
