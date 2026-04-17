@@ -134,13 +134,13 @@ th {
 }
 
 .tabla-compacta {
-    width: 100%;
+    width: auto;
     border-collapse: collapse;
 }
 
 .tabla-compacta td,
 .tabla-compacta th {
-    padding: 4px 8px;      /* Reduce espacio vertical */
+    padding: 10px 20px;      /* Reduce espacio vertical */
     line-height: 1.2;       /* Reduce altura de línea */
     font-size: 14px;        /* Opcional: texto más pequeño */
 }
@@ -162,6 +162,11 @@ th {
 
 .btn-compacto:hover {
     background-color: #f0f0f0;
+}
+
+
+#TablaPrincipal {
+    margin: 0 auto;
 }
 
 /* ===== RESPONSIVE ===== */

@@ -43,7 +43,7 @@
                                 <button id="btnAgregarGRR" type="button" class="btn-plus">+</button>
                             </h3>
                             <div id="LGRR" class="ModalOculto">
-                                <table id="ListaGRRPOST" class="tabla-compacta">
+                                <table id="ListaGRRPOST" >
                                     <thead>
                                         <tr>
                                             <th>GRR</th>
@@ -65,7 +65,7 @@
                                 <button id="btnAgregarGRT" type="button" class="btn-plus">+</button>
                             </h3>
                             <div id="LGRT" class="ModalOculto">
-                                <table id="ListaGRTPOST" class="tabla-compacta">
+                                <table id="ListaGRTPOST" >
                                     <thead>
                                         <tr>
                                             <th>GRT</th>
@@ -92,9 +92,18 @@
                             <input id="Costo" type="number" placeholder="Costo">
                             <button id="btnAgregarPeaje" type="button" class="btn-plus">+</button>
                             <div id="ListaPeajes" class="ListaPeajes">
-                                <ul id="ListaPeajesPOST">
-                                    <!-- Se Agregan Peajes Dinamicamente a la lista -->
-                                </ul>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Ubicación</th>
+                                            <th>Costo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaPeajes">
+                                        <!-- Se Agregan Peajes Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div>
@@ -103,9 +112,18 @@
                             <input id="Monto" type="number" placeholder="Costo">
                             <button id="btnAgregarGasto" type="button" class="btn-plus">+</button>
                             <div id="ListaGastosVarios" class="ListaGastosVarios">
-                                <ul id="ListaGastosPOST">
-                                    <!-- Se Agregan Gastos Varios Dinamicamente a la lista -->
-                                </ul>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Costo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGastosVarios">
+                                        <!-- Se Agregan Gastos Varios Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -193,20 +211,22 @@
         </div>
         <!---->
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Datos</th>
-                    <th>Guias</th>
-                    <th>Gastos</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tablaDatos">
-                <!-- filas dinámicas -->
-            </tbody>
-        </table>
+        <div>
+            <table id="TablaPrincipal" class="tabla-compacta">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Datos</th>
+                        <th>Guias</th>
+                        <th>Gastos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatos">
+                    <!-- filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
 
     </div>
 <script src="./js.js"></script>

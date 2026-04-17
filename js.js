@@ -146,6 +146,13 @@ function RellenarForm(id){
         CrearFilaGRT(grt);
     });
 
+    datoActual.Peajes.forEach(p => {
+        CrearFilaPeaje(p.Costo, p.Ubicacion);
+    });
+
+    document.getElementById("Galones").value = datoActual.Combustible.Galones;
+    document.getElementById("PrecioGalon").value = datoActual.Combustible.PrecioGalon;
+
 }
 
 function LimpiarForm(){
@@ -164,8 +171,8 @@ function LimpiarForm(){
 
     document.getElementById("TablaGRR").innerHTML="";
     document.getElementById("TablaGRT").innerHTML="";
-    document.getElementById("ListaPeajesPOST").innerHTML="";
-    document.getElementById("ListaGastosPOST").innerHTML="";
+    document.getElementById("TablaPeajes").innerHTML="";
+    document.getElementById("TablaGastosVarios").innerHTML="";
 
     document.getElementById("Galones").value = "";
     document.getElementById("PrecioGalon").value = "";
@@ -279,6 +286,7 @@ function RellenarModalGastos(id){
 function CrearBotonVista(DatoId, texto,modal){
     const btn = document.createElement("button");
     btn.textContent = texto;
+    btn.classList.add("btn-compacto");
     btn.addEventListener("click", () => {
         if(texto==="Datos"){
             RellenarModalDatos(DatoId);
@@ -322,11 +330,11 @@ function CrearFilaGRR(valor){
 function CrearFilaGRT(valor){
     const TGRT = document.getElementById("TablaGRT");
     const tr = document.createElement("tr");
-    const td = document.createElement("td");
+    const tdGRT = document.createElement("td");
     const actionTd = document.createElement("td");
 
-    td.textContent = valor ? valor : document.getElementById("txtGRT").value;
-    tr.appendChild(td);
+    tdGRT.textContent = valor ? valor : document.getElementById("txtGRT").value;
+    tr.appendChild(tdGRT);
 
     const deleteBtn = CrearBotonEliminarGuia(document.getElementById("txtGRT").value, "GRT",tr);
     actionTd.appendChild(deleteBtn);
@@ -340,9 +348,40 @@ function CrearFilaGRT(valor){
     document.getElementById("txtGRT").value = "";
 }
 
+function CrearFilaPeaje(Costo, Ubicacion){
+    const TPeajes = document.getElementById("TablaPeajes");
+    const tr = document.createElement("tr");
+    const tdCosto = document.createElement("td");
+    const tdUbicacion = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    tdCosto.textContent = Costo ? Costo : document.getElementById("Costo").value;
+    tdUbicacion.textContent = Ubicacion ? Ubicacion : document.getElementById("Ubicacion").value;
+
+    tr.appendChild(tdCosto);
+    tr.appendChild(tdUbicacion);
+
+    const deleteBtn = CrearBotonEliminarPeaje(document.getElementById("Costo").value, document.getElementById("Ubicacion").value, tr);
+    actionTd.appendChild(deleteBtn);
+    tr.appendChild(actionTd);
+
+    TPeajes.appendChild(tr);
+
+    if(!Costo && !Ubicacion){
+        Peajes.push({
+            Costo: document.getElementById("Costo").value,
+            Ubicacion: document.getElementById("Ubicacion").value
+        });
+    }
+    document.getElementById("Costo").value = "";
+    document.getElementById("Ubicacion").value = "";
+
+}
+
 function CrearBotonEliminar(DatoId){
     const btn = document.createElement("button");
     btn.textContent = "🗑️";
+    btn.classList.add("btn-compacto");  
     btn.addEventListener("click", async () => {
         try {
             const response = await fetch(`${API_URL}/api/datos/${DatoId}`, {
@@ -368,6 +407,7 @@ function CrearBotonEliminar(DatoId){
 function CrearBotonEditar(DatoId){
     const btn = document.createElement("button");
     btn.textContent = "✏️";
+    btn.classList.add("btn-compacto");
     btn.addEventListener("click", () => {
         document.getElementById("ModalDatos").classList.remove("ModalOculto");
         document.getElementById("DivBtnGuardar").classList.add("ModalOculto");
@@ -375,10 +415,10 @@ function CrearBotonEditar(DatoId){
         GRRs = datos.find(d => d.DatoId === DatoId).GRR;
         GRTs = datos.find(d => d.DatoId === DatoId).GRT;
         
-        const TGRR = document.getElementById("TablaGRR");
-        const TGRT = document.getElementById("TablaGRT");
-        TGRR.innerHTML="";
-        TGRT.innerHTML="";
+        document.getElementById("TablaGRR").innerHTML="";
+        document.getElementById("TablaGRT").innerHTML="";
+        document.getElementById("TablaPeajes").innerHTML="";
+        document.getElementById("TablaGastosVarios").innerHTML="";
 
         RellenarForm(DatoId);
 
@@ -403,6 +443,18 @@ function CrearBotonEliminarGuia(valor, tipo, fila){
         }
     });
     return btn;
+}
+
+function CrearBotonEliminarPeaje(Costo, Ubicacion, fila){
+    const btn = document.createElement("button");
+    btn.textContent = "🗑️";
+    btn.classList.add("btn-compacto");
+    btn.addEventListener("click", () => {
+        Peajes.splice(Peajes.indexOf({ Costo, Ubicacion }), 1);
+        fila.remove();
+    });
+    return btn;
+
 }
 
 function OcultarForms(){
@@ -482,19 +534,7 @@ txtGRT.addEventListener("focus", () => {
 });
 
 btnAgregarPeaje.addEventListener("click", () => {
-    const peaje = {
-        Costo: document.getElementById("Costo").value,
-        Ubicacion: document.getElementById("Ubicacion").value
-    };
-    Peajes.push(peaje);
-    
-    const ul = document.getElementById("ListaPeajesPOST");
-    const li = document.createElement("li");
-    li.textContent = `S/ ${peaje.Costo} - ${peaje.Ubicacion}`;
-    console.log(li.textContent);
-    ul.appendChild(li);
-    document.getElementById("Costo").value = "";
-    document.getElementById("Ubicacion").value = "";
+    CrearFilaPeaje(null, null);
 });
 
 btnAgregarGasto.addEventListener("click", () => {
