@@ -172,6 +172,19 @@ th {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
 
+    .contenedor {
+        width: auto;
+        display: inline-block;
+        max-width: 480px;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    table {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .formulario {
         grid-template-columns: 1fr;
     }
