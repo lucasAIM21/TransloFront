@@ -173,55 +173,60 @@ th {
 @media (max-width: 768px) {
 
     .contenedor {
-        width: auto;
-        display: inline-block;
-        max-width: 480px;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: auto;              /* Elimina el 95% para permitir que se encoja */
+        min-width: min-content; 
+        max-width: 95vw;
+
         margin: 20px auto;
-        padding: 10px;
+        display: flex;
+        padding: 15px;            /* Espacio interno del cuadro blanco */
     }
 
-    table {
-        width: 100%;
-        max-width: 100%;
+    .btnCentrado , .contenedor > div {
+        width: auto;
+        display: flex;
+        justify-content: center;
     }
 
-    .formulario {
-        grid-template-columns: 1fr;
+    .contenedor h2 {
+        display: table;
+        width: auto;
+        margin: 0 auto;
+    }
+    
+    .contenedor table {
+        width: auto;              /* Importante: la tabla no debe forzar el 100% */
+        display: table;           /* Asegura que se comporte como tabla real */
+        margin: 0 auto;
     }
 
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
+    /* --- NOTA CRÍTICA --- */
+    /* He eliminado 'display: block' de table, tr y td. 
+       Si conviertes los TD en bloques, la tabla SIEMPRE ocupará todo el ancho.
+       Para que el contenedor se ajuste, los TD deben permanecer como celdas. */
 
     thead tr {
-        display: none;
+        display: table-row; /* Mantiene oculto el encabezado en móvil si así lo deseas */
     }
 
-    tbody tr {
-        margin-bottom: 15px;
-        background: #f9f9f9;
-        padding: 10px;
-        border-radius: 6px;
+    /* Estilo para las celdas en móvil sin romper el ancho */
+    th, td {
+        padding: 8px 12px;
+        white-space: nowrap; /* Evita que los textos se amontonen y definan el ancho real */
     }
 
-    tbody td {
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 10px;
-        text-align: right;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        position: relative;
+    /* Si quieres que los botones de acciones no se vean pegados */
+    .btn-compacto {
+        margin: 0 2px;
     }
 
+    /* Ocultamos el diseño de 'data-label' anterior porque ese diseño 
+       está hecho específicamente para ocupar el 100% del ancho. */
     tbody td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        text-align: left;
-        flex: 1;
-    }
-
-    tbody td:last-child {
-        border-bottom: none;
+        content: none; 
     }
 }
