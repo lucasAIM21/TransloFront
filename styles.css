@@ -31,8 +31,8 @@ h2, h3 {
 }
 
 .formulario input {
-    padding: 8px;
-    font-size: 14px;
+    padding: 2px;
+    font-size: 30px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -44,9 +44,13 @@ h2, h3 {
     margin-bottom: 20px;
 }
 
+.btnCentrado button {
+    font-size: 30px;
+}
+
 button {
     padding: 10px 25px;
-    font-size: 14px;
+    font-size: 30px;
     cursor: pointer;
 }
 
@@ -105,7 +109,7 @@ th {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 
     width: 90%;
-    max-width: 500px;
+    max-width: 800px;
     box-sizing: border-box;
 }
 
@@ -116,7 +120,7 @@ th {
 
     background: transparent;
     border: none;
-    font-size: 20px;
+    font-size: 40px;
     cursor: pointer;
 }
 
@@ -127,7 +131,7 @@ th {
 }
 
 .btn-plus  {
-    font-size: 1em;        /* mismo tamaño que el texto */
+    font-size: 30px;        /* mismo tamaño que el texto */
     padding: 0 8px;
     line-height: 1;        /* evita que se deforme */
     cursor: pointer;
@@ -142,7 +146,7 @@ th {
 .tabla-compacta th {
     padding: 10px 20px;      /* Reduce espacio vertical */
     line-height: 1.2;       /* Reduce altura de línea */
-    font-size: 30px;        /* Opcional: texto más pequeño */
+    font-size: 35px;        /* Opcional: texto más pequeño */
 }
 
 .tabla-compacta tr {
