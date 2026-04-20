@@ -142,18 +142,18 @@ th {
 .tabla-compacta th {
     padding: 10px 20px;      /* Reduce espacio vertical */
     line-height: 1.2;       /* Reduce altura de línea */
-    font-size: 25px;        /* Opcional: texto más pequeño */
+    font-size: 30px;        /* Opcional: texto más pequeño */
 }
 
 .tabla-compacta tr {
     height: auto;
-    font-size: 25 px;           /* Elimina altura fija */
+    font-size: 30 px;           /* Elimina altura fija */
 }
 
 .btn-compacto {
     padding: 2px 6px;
     margin: 0;
-    font-size: 25px;
+    font-size: 30px;
     line-height: 1;
     background-color: transparent;
     border: none;
