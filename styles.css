@@ -1,75 +1,222 @@
 /* ===== RESET / BASE ===== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+}
+
+.bodyPrincipal {
+    padding-top: 70px;
+}
+
+/* ===== HEADER ===== */
+.headerPrincipal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.headerContenido {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoHeader {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btnLogout {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btnLogout:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .contenedor {
     width: 95%;
-    max-width: 1000px;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 30px auto;
     background: #fff;
-    padding: 20px;
-    border-radius: 6px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
 
 h2, h3 {
     text-align: center;
     margin: 10px 0 20px 0;
+    color: #333;
+}
+
+h2 {
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #555;
 }
 
 /* ===== FORMULARIO ===== */
 .formulario {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .formulario input {
-    padding: 2px;
-    font-size: 30px;
+    padding: 12px;
+    font-size: 14px;
     width: 100%;
     box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
 }
 
 /* ===== BOTONES ===== */
 .btnCentrado {
     display: flex;
     justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .btnCentrado button {
-    font-size: 30px;
+    font-size: 14px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
 }
 
 button {
-    padding: 10px 25px;
-    font-size: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+    background-color: #667eea;
+    color: white;
+}
+
+button:hover {
+    background-color: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#btnAgregar {
+    background-color: #667eea;
+    color: white;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#btnAgregar:hover {
+    background-color: #5568d3;
+}
+
+.btnForm {
+    background-color: #764ba2;
+    margin: 0 5px;
+}
+
+.btnForm:hover {
+    background-color: #663a8a;
+}
+
+.btnGuardar, #btnGuardar {
+    background-color: #4caf50;
+}
+
+.btnGuardar:hover, #btnGuardar:hover {
+    background-color: #45a049;
+}
+
+.btnCancelar, #btnCancelar {
+    background-color: #f44336;
+}
+
+.btnCancelar:hover, #btnCancelar:hover {
+    background-color: #da190b;
+}
+
+.btnEditar, #btnEditar {
+    background-color: #2196f3;
+}
+
+.btnEditar:hover, #btnEditar:hover {
+    background-color: #0b7dda;
 }
 
 /* ===== TABLA ===== */
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 14px;
+    background-color: #fff;
 }
 
 th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
+    border: 1px solid #ddd;
+    padding: 12px;
     text-align: center;
     word-break: break-word;
 }
 
 th {
-    background-color: #eaeaea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
 }
 
 /* ===== MODAL (OVERLAY) ===== */
@@ -82,17 +229,29 @@ th {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #GuiasForm h3 {
     text-align: left;
+    color: #667eea;
+    font-weight: bold;
 }
 
 /* ===== VISIBILIDAD ===== */
@@ -104,73 +263,378 @@ th {
 .ModalCaja {
     position: relative;
     background-color: #fff;
-    padding: 30px;
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 
     width: 90%;
     max-width: 800px;
     box-sizing: border-box;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .btnCerrar {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
 
     background: transparent;
     border: none;
-    font-size: 40px;
+    font-size: 28px;
     cursor: pointer;
+    color: #666;
+    transition: all 0.3s;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnCerrar:hover {
+    color: #333;
+    transform: rotate(90deg);
 }
 
 .titulo-remitente {
     display: flex;
-    align-items: center;   /* alineación vertical perfecta */
-    gap: 10px;             /* espacio entre texto y botón */
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-weight: bold;
 }
 
-.btn-plus  {
-    font-size: 30px;        /* mismo tamaño que el texto */
-    padding: 0 8px;
-    line-height: 1;        /* evita que se deforme */
+.titulo-remitente input {
+    flex: 1;
+    max-width: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.btn-plus {
+    font-size: 16px;
+    padding: 8px 12px;
+    background-color: #667eea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    line-height: 1;
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-plus:hover {
+    background-color: #5568d3;
 }
 
 .tabla-compacta {
-    width: auto;
+    width: 100%;
     border-collapse: collapse;
 }
 
 .tabla-compacta td,
 .tabla-compacta th {
-    padding: 10px 20px;      /* Reduce espacio vertical */
-    line-height: 1.2;       /* Reduce altura de línea */
-    font-size: 35px;        /* Opcional: texto más pequeño */
+    padding: 12px 15px;
+    line-height: 1.4;
+    font-size: 13px;
+    border: 1px solid #ddd;
 }
 
-.tabla-compacta tr {
-    height: auto;
-    font-size: 30 px;           /* Elimina altura fija */
+.tabla-compacta th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-compacta tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Ancho específico de columnas */
+.tabla-compacta th:nth-child(1),
+.tabla-compacta td:nth-child(1) {
+    min-width: 80px;
+    max-width: 100px;
+    width: 80px;
+}
+
+.tabla-compacta th:nth-child(2),
+.tabla-compacta td:nth-child(2),
+.tabla-compacta th:nth-child(3),
+.tabla-compacta td:nth-child(3),
+.tabla-compacta th:nth-child(4),
+.tabla-compacta td:nth-child(4) {
+    min-width: 60px;
+    max-width: 70px;
+    width: 65px;
+}
+
+.tabla-compacta th:nth-child(5),
+.tabla-compacta td:nth-child(5) {
+    min-width: 70px;
+    max-width: 85px;
+    width: 75px;
 }
 
 .btn-compacto {
-    padding: 2px 6px;
-    margin: 0;
-    font-size: 30px;
+    padding: 6px 10px;
+    margin: 0 3px;
+    font-size: 14px;
     line-height: 1;
-    background-color: transparent;
+    background-color: #2196f3;
+    color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .btn-compacto:hover {
-    background-color: #f0f0f0;
+    background-color: #0b7dda;
+    transform: scale(1.1);
 }
 
-
 #TablaPrincipal {
-    margin: 0 auto;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .headerContenido {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logoHeader {
+        font-size: 20px;
+    }
+
+    .ModalCaja {
+        padding: 25px;
+        width: 95%;
+    }
+
+    .titulo-remitente {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .titulo-remitente input {
+        width: 100%;
+    }
+
+    .btnCentrado {
+        flex-direction: column;
+    }
+
+    .btnCentrado button {
+        width: 100%;
+    }
+
+    /* Botones del modal mantienen dirección horizontal */
+    .ModalCaja .btnCentrado {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .ModalCaja .btnCentrado button {
+        width: auto;
+        flex: 1;
+        min-width: 80px;
+        margin: 0 5px;
+    }
+
+    /* ===== TABLA RESPONSIVA ===== */
+    #TablaDatos {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -20px;
+        padding: 0;
+    }
+
+    .tabla-compacta {
+        min-width: 450px;
+        font-size: 12px;
+    }
+
+    .tabla-compacta th,
+    .tabla-compacta td {
+        padding: 8px 5px;
+        font-size: 11px;
+    }
+
+    .tabla-compacta th:nth-child(1),
+    .tabla-compacta td:nth-child(1) {
+        min-width: 70px;
+        max-width: 80px;
+        width: 70px;
+    }
+
+    .tabla-compacta th:nth-child(2),
+    .tabla-compacta td:nth-child(2),
+    .tabla-compacta th:nth-child(3),
+    .tabla-compacta td:nth-child(3),
+    .tabla-compacta th:nth-child(4),
+    .tabla-compacta td:nth-child(4) {
+        min-width: 50px;
+        max-width: 60px;
+        width: 55px;
+    }
+
+    .tabla-compacta th:nth-child(5),
+    .tabla-compacta td:nth-child(5) {
+        min-width: 60px;
+        max-width: 70px;
+        width: 65px;
+    }
+
+    .btn-compacto {
+        padding: 4px 6px;
+        font-size: 11px;
+        margin: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 15px;
+        margin: 20px 10px;
+        border-radius: 8px;
+    }
+
+    .bodyPrincipal {
+        padding-top: 60px;
+    }
+
+    .headerPrincipal {
+        padding: 10px 0;
+    }
+
+    .headerContenido {
+        padding: 0 10px;
+    }
+
+    .logoHeader {
+        font-size: 18px;
+    }
+
+    .btnLogout {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .ModalCaja {
+        padding: 20px;
+        width: 90%;
+        max-height: 90vh;
+    }
+
+    #btnAgregar {
+        padding: 12px 30px;
+        font-size: 14px;
+    }
+
+    /* ===== TABLA MÓVIL COMPACTA ===== */
+    #TablaDatos {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -15px;
+        padding: 0;
+    }
+
+    .tabla-compacta {
+        min-width: 400px;
+        font-size: 10px;
+    }
+
+    .tabla-compacta thead {
+        position: sticky;
+        top: 0;
+    }
+
+    .tabla-compacta th,
+    .tabla-compacta td {
+        padding: 6px 3px;
+        font-size: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tabla-compacta th:nth-child(1),
+    .tabla-compacta td:nth-child(1) {
+        min-width: 60px;
+        max-width: 70px;
+        width: 60px;
+    }
+
+    .tabla-compacta th:nth-child(2),
+    .tabla-compacta td:nth-child(2),
+    .tabla-compacta th:nth-child(3),
+    .tabla-compacta td:nth-child(3),
+    .tabla-compacta th:nth-child(4),
+    .tabla-compacta td:nth-child(4) {
+        min-width: 45px;
+        max-width: 50px;
+        width: 45px;
+    }
+
+    .tabla-compacta th:nth-child(5),
+    .tabla-compacta td:nth-child(5) {
+        min-width: 55px;
+        max-width: 60px;
+        width: 55px;
+    }
+
+    .tabla-compacta th {
+        font-weight: bold;
+    }
+
+    .btn-compacto {
+        padding: 3px 5px;
+        font-size: 10px;
+        margin: 1px;
+        min-width: 28px;
+        height: 28px;
+    }
+
+    .btnCentrado button {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .formulario input {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
 }
 
