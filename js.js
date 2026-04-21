@@ -21,6 +21,8 @@ let GRTs = [];
 let Peajes = [];
 let Gastos = [];
 
+let DatoIdActual = null;
+
 
 async function CargarDatos() {
     try{
@@ -34,14 +36,7 @@ async function CargarDatos() {
     }
 }
 
-//POST de Datos:
-form.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    
-    /*if(!ValidarCampos()){
-        alert("Complete todos los campos")
-        return;
-    }*/
+function ObtenerDatosFormulario(){
     
     const data = Object.fromEntries(new FormData(form));
 
@@ -57,6 +52,19 @@ form.addEventListener("submit", async (e)=>{
     data.GRT = GRTs;
     data.Peajes = Peajes;
     data.GastosImprevistos = Gastos;
+
+    return data;
+}
+
+//POST de Datos:
+form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    
+    /*if(!ValidarCampos()){
+        alert("Complete todos los campos")
+        return;
+    }*/
+    const data = ObtenerDatosFormulario();
 
     console.log("Datos a enviar:", data);
     try {
@@ -445,6 +453,9 @@ function CrearBotonEditar(DatoId){
     btn.textContent = "✏️";
     btn.classList.add("btn-compacto");
     btn.addEventListener("click", () => {
+
+        DatoIdActual = DatoId;
+
         document.getElementById("ModalDatos").classList.remove("ModalOculto");
         document.getElementById("DivBtnEditar").classList.remove("ModalOculto");
         document.getElementById("DivBtnGuardar").classList.add("ModalOculto");
@@ -521,7 +532,22 @@ btnAgregar.addEventListener("click", () =>{
 });
 
 btnEditar.addEventListener("click", () => {
-    
+    const data = ObtenerDatosFormulario();
+
+    try {
+        fetch(`${API_URL}/api/datos/${DatoIdActual}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+    }catch (error) {
+        console.error("Error al actualizar el dato: ", error);
+    }
+
+    document.getElementById("ModalDatos").classList.add("ModalOculto");
+    RellenarTabla();
 });
 
 btnCancelar.addEventListener("click", () => {
