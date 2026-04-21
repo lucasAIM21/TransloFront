@@ -76,7 +76,7 @@ form.addEventListener("submit", async (e)=>{
     } catch (error) {
         console.error("Error al subir los datos: ",error)
     }
-    OcultarForms();
+    document.getElementById("ModalDatos").classList.add("ModalOculto");
     RellenarTabla();
 });
 
