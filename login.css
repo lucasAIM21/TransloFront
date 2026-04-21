@@ -1,0 +1,211 @@
+/* ===== ESTILOS ESPECÍFICOS DEL LOGIN ===== */
+
+.bodyLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.contenedorLogin {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.cajaLogin {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cajaLogin h2 {
+    margin-top: 0;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.subtituloLogin {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* ===== FORMULARIO LOGIN ===== */
+.formularioLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupoFormulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupoFormulario label {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+.grupoFormulario input[type="text"],
+.grupoFormulario input[type="password"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.grupoFormulario input[type="text"]:focus,
+.grupoFormulario input[type="password"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== RECORDAR ME ===== */
+.recordarMe {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.recordarMe input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.recordarMe label {
+    cursor: pointer;
+    margin: 0;
+    font-weight: normal;
+    color: #666;
+}
+
+/* ===== BOTONES LOGIN ===== */
+.btnLogin {
+    background-color: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btnLogin:hover {
+    background-color: #5568d3;
+}
+
+.btnLogin:active {
+    transform: scale(0.98);
+}
+
+.btnRegistro {
+    background-color: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btnRegistro:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* ===== SEPARADOR ===== */
+.separador {
+    text-align: center;
+    color: #ccc;
+    font-size: 12px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.separador::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+}
+
+.separador {
+    background: white;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.separador::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.separador::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* ===== ENLACES ===== */
+.enlaceAyuda {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.enlaceAyuda a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.enlaceAyuda a:hover {
+    color: #5568d3;
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .contenedorLogin {
+        max-width: 100%;
+    }
+    
+    .cajaLogin {
+        padding: 30px 20px;
+    }
+    
+    .cajaLogin h2 {
+        font-size: 24px;
+    }
+}
