@@ -150,7 +150,11 @@ function RellenarForm(id){
         CrearFilaPeaje(p.Costo, p.Ubicacion);
     });
 
-    document.getElementById("Galones").value = datoActual.Combustible.Galones;
+    datoActual.GastosImprevistos.forEach(g => {
+        CrearFilaGasto(g.Monto, g.Descripcion);
+    });
+
+    document.getElementById("Galones").value = datoActual.Combustible.galones;
     document.getElementById("PrecioGalon").value = datoActual.Combustible.PrecioGalon;
 
 }
@@ -358,10 +362,10 @@ function CrearFilaPeaje(Costo, Ubicacion){
     tdCosto.textContent = Costo ? Costo : document.getElementById("Costo").value;
     tdUbicacion.textContent = Ubicacion ? Ubicacion : document.getElementById("Ubicacion").value;
 
-    tr.appendChild(tdCosto);
     tr.appendChild(tdUbicacion);
+    tr.appendChild(tdCosto);
 
-    const deleteBtn = CrearBotonEliminarPeaje(document.getElementById("Costo").value, document.getElementById("Ubicacion").value, tr);
+    const deleteBtn = CrearBotonEliminarPeaje_Gasto(document.getElementById("Costo").value, document.getElementById("Ubicacion").value, tr,"Peaje");
     actionTd.appendChild(deleteBtn);
     tr.appendChild(actionTd);
 
@@ -375,6 +379,38 @@ function CrearFilaPeaje(Costo, Ubicacion){
     }
     document.getElementById("Costo").value = "";
     document.getElementById("Ubicacion").value = "";
+    console.log(Peajes);
+
+}
+
+function CrearFilaGasto(Monto, Descripcion){
+    const TGastos = document.getElementById("TablaGastosVarios");
+    const tr = document.createElement("tr");
+    const tdMonto = document.createElement("td");
+    const tdDescripcion = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    tdMonto.textContent = Monto ? Monto : document.getElementById("Monto").value;
+    tdDescripcion.textContent = Descripcion ? Descripcion : document.getElementById("Descripcion").value;
+
+    tr.appendChild(tdDescripcion);
+    tr.appendChild(tdMonto);
+
+    const deleteBtn = CrearBotonEliminarPeaje_Gasto(document.getElementById("Monto").value, document.getElementById("Descripcion").value, tr,"Gasto");
+    actionTd.appendChild(deleteBtn);
+    tr.appendChild(actionTd);
+
+    TGastos.appendChild(tr);
+
+    if(!Monto && !Descripcion){
+        Gastos.push({
+            Monto: document.getElementById("Monto").value,
+            Descripcion: document.getElementById("Descripcion").value
+        });
+    }
+    document.getElementById("Monto").value = "";
+    document.getElementById("Descripcion").value = "";
+    console.log(Gastos);
 
 }
 
@@ -410,19 +446,19 @@ function CrearBotonEditar(DatoId){
     btn.classList.add("btn-compacto");
     btn.addEventListener("click", () => {
         document.getElementById("ModalDatos").classList.remove("ModalOculto");
-        document.getElementById("DivBtnGuardar").classList.add("ModalOculto");
         document.getElementById("DivBtnEditar").classList.remove("ModalOculto");
+        document.getElementById("DivBtnGuardar").classList.add("ModalOculto");
         GRRs = datos.find(d => d.DatoId === DatoId).GRR;
         GRTs = datos.find(d => d.DatoId === DatoId).GRT;
-        
+        Peajes = datos.find(d => d.DatoId === DatoId).Peajes;
+        Gastos = datos.find(d => d.DatoId === DatoId).Gastos;
+
         document.getElementById("TablaGRR").innerHTML="";
         document.getElementById("TablaGRT").innerHTML="";
         document.getElementById("TablaPeajes").innerHTML="";
         document.getElementById("TablaGastosVarios").innerHTML="";
 
         RellenarForm(DatoId);
-
-        console.log(GRRs);
 
     });
 
@@ -445,14 +481,21 @@ function CrearBotonEliminarGuia(valor, tipo, fila){
     return btn;
 }
 
-function CrearBotonEliminarPeaje(Costo, Ubicacion, fila){
+function CrearBotonEliminarPeaje_Gasto(Costo, Ubicacion, fila, tipo){
     const btn = document.createElement("button");
     btn.textContent = "🗑️";
     btn.classList.add("btn-compacto");
-    btn.addEventListener("click", () => {
-        Peajes.splice(Peajes.indexOf({ Costo, Ubicacion }), 1);
-        fila.remove();
-    });
+    if(tipo === "Peaje"){
+        btn.addEventListener("click", () => {
+            Peajes.splice(Peajes.indexOf({ Costo, Ubicacion }), 1);
+            fila.remove();
+        });
+    }else if(tipo === "Gasto"){
+        btn.addEventListener("click", () => {
+            Gastos.splice(Gastos.indexOf({ Monto: Costo, Descripcion: Ubicacion }), 1);
+            fila.remove();
+        });
+    }
     return btn;
 
 }
@@ -474,6 +517,7 @@ btnAgregar.addEventListener("click", () =>{
     document.getElementById("DivBtnGuardar").classList.remove("ModalOculto");
     document.getElementById("DivBtnEditar").classList.add("ModalOculto");
     modal.classList.remove("ModalOculto");
+
 });
 
 btnEditar.addEventListener("click", () => {
@@ -481,6 +525,7 @@ btnEditar.addEventListener("click", () => {
 });
 
 btnCancelar.addEventListener("click", () => {
+    LimpiarForm();
     const modal = document.getElementById("ModalDatos");
     modal.classList.add("ModalOculto");
 });
@@ -538,18 +583,7 @@ btnAgregarPeaje.addEventListener("click", () => {
 });
 
 btnAgregarGasto.addEventListener("click", () => {
-    const gasto = {
-        Monto: document.getElementById("Monto").value,
-        Descripcion: document.getElementById("Descripcion").value
-    };
-    Gastos.push(gasto);
-
-    const ul = document.getElementById("ListaGastosPOST");
-    const li = document.createElement("li");
-    li.textContent = `S/ ${gasto.Monto} - ${gasto.Descripcion}`;
-    ul.appendChild(li);
-    document.getElementById("Monto").value = "";
-    document.getElementById("Descripcion").value = "";
+    CrearFilaGasto(null, null);
 });
 
 async function init(){
