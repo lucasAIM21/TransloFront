@@ -617,4 +617,4 @@ async function init(){
     BotonesDelForm();
 }
 
-init();
+document.addEventListener("DOMContentLoaded", init);

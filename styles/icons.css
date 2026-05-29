@@ -1,0 +1,133 @@
+/* ===== SISTEMA DE ICONOS SVG ===== */
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
+.icon svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.icon-plus::before {
+    content: url('../icons/plus.svg');
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-icon-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-icon-small svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== VARIANTES DE BOTONES CON ICONOS ===== */
+.btn-icon.btn-primary svg {
+    stroke: white;
+}
+
+.btn-icon.btn-search svg {
+    stroke: white;
+}
+
+.btn-icon.btn-danger svg {
+    stroke: white;
+}
+
+.btn-icon-small.btn-edit svg {
+    stroke: #007bff;
+}
+
+.btn-icon-small.btn-delete svg {
+    stroke: #dc3545;
+}
+
+.btn-icon-small.btn-add svg {
+    stroke: #667eea;
+}
+
+.btn-icon-small.btn-edit:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.btn-icon-small.btn-delete:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.btn-icon-small.btn-add:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+}
+
+.btn-close-modal svg {
+    stroke: currentColor;
+    width: 24px;
+    height: 24px;
+}
+
+/* ===== ESTILOS ADICIONALES DE ICONOS ===== */
+.icon-header {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsivo para botones con iconos */
+@media (max-width: 768px) {
+    .btn-icon {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+}

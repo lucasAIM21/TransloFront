@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="../styles/styles_principal.css">
+    <link rel="stylesheet" href="../styles/icons.css">
+    <link rel="stylesheet" href="../styles/usuarios_styles.css">
+</head>
+<body class="bodyPrincipal">
+    <div class="usuarios-modal">
+        <!-- Encabezado con botón de agregar y búsqueda -->
+        <div class="usuarios-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-primary" id="btnAgregarUsuario">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Agregar Usuario
+                </button>
+            </div>
+            <div class="header-right">
+                <input 
+                    type="text" 
+                    class="input-buscar" 
+                    id="inputBuscar" 
+                    placeholder="Buscar usuario por nombre o DNI..."
+                >
+                <button class="btn btn-icon btn-search" id="btnBuscar">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    Buscar
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabla de usuarios -->
+        <div class="tabla-container">
+            <table class="tabla-usuarios">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Rol</th>
+                        <th>Empresa</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaUsuariosBody">
+                    <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Registro de Usuario -->
+    <div class="modal-registro ModalOculto" id="modalRegistroUsuario">
+        <div class="modal-registro-caja">
+            <div class="modal-registro-header">
+                <h2>Registrar Nuevo Usuario</h2>
+                <button class="btn-cerrar-modal" id="btnCerrarModalRegistro">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <form class="formulario-registro" id="formularioRegistro">
+                <!-- Nombre -->
+                <div class="grupo-formulario">
+                    <label for="nombre">Nombres:</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        placeholder="Ingresa el nombre"
+                        required
+                    >
+                </div>
+
+                <!-- Apellido -->
+                <div class="grupo-formulario">
+                    <label for="apellido">Apellidos:</label>
+                    <input 
+                        type="text" 
+                        id="apellido" 
+                        name="apellido" 
+                        placeholder="Ingresa el apellido"
+                        required
+                    >
+                </div>
+
+                <!-- DNI -->
+                <div class="grupo-formulario">
+                    <label for="dni">DNI:</label>
+                    <input 
+                        type="text" 
+                        id="dni"
+                        name="dni" 
+                        placeholder="Ingresa el DNI"
+                        required
+                    >
+                </div>
+
+                <!-- Contraseña -->
+                <div class="grupo-formulario">
+                    <label for="contrasena">Contraseña:</label>
+                    <input 
+                        type="password" 
+                        id="contrasena" 
+                        name="contrasena" 
+                        placeholder="Ingresa la contraseña"
+                        required
+                    >
+                </div>
+
+                <!-- Rol -->
+                <div class="grupo-formulario">
+                    <label for="rol">Rol:</label>
+                    <select 
+                        id="rol" 
+                        name="RoleId"
+                        required
+                    >
+                        <option value="">Selecciona un rol</option>
+                    </select>
+                </div>
+
+                <!-- Empresa -->
+                <div class="grupo-formulario">
+                    <label for="empresa">Empresa:</label>
+                    <select 
+                        id="empresa" 
+                        name="EmpresaId"
+                        required
+                    >
+                        <option value="">Selecciona una empresa</option>
+                    </select>
+                </div>
+
+                <!-- Botones -->
+                <div class="botones-registro">
+                    <button type="button" class="btn btn-cancelar" id="btnCancelarRegistro">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-guardar ModalOculto" id="btnEditarUsuario">
+                        Editar
+                    </button>
+                    <button type="submit" class="btn btn-guardar" id="btnGuardarUsuario">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../scripts/Usuarios.js"></script>
+</body>
+</html>

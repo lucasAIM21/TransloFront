@@ -6,6 +6,7 @@
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
 }
 
 .contenedorLogin {
@@ -18,7 +19,19 @@
     background: #fff;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cajaLogin h2 {
@@ -26,6 +39,7 @@
     color: #333;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-align: center;
 }
 
 .subtituloLogin {
@@ -49,25 +63,29 @@
 }
 
 .grupoFormulario label {
-    font-weight: bold;
+    font-weight: 600;
     color: #333;
     font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .grupoFormulario input[type="text"],
 .grupoFormulario input[type="password"] {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    font-family: inherit;
 }
 
 .grupoFormulario input[type="text"]:focus,
 .grupoFormulario input[type="password"]:focus {
     outline: none;
     border-color: #667eea;
-    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.25), inset 0 0 4px rgba(102, 126, 234, 0.1);
+    background-color: #fafbfe;
 }
 
 /* ===== RECORDAR ME ===== */
@@ -80,8 +98,9 @@
 
 .recordarMe input[type="checkbox"] {
     cursor: pointer;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
 }
 
 .recordarMe label {
@@ -98,6 +117,21 @@
     border: none;
     padding: 12px 30px;
     font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnLogin:hover {
+    background-color: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
+}
+
+.btnLogin:active {
+    transform: translateY(0);
+}
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;

@@ -1,0 +1,339 @@
+/* ===== USUARIOS PAGE ESPECÍFICO ===== */
+
+.usuarios-modal {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.usuarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.header-left {
+    display: flex;
+    gap: 10px;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-buscar {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 250px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.input-buscar:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.25), inset 0 0 4px rgba(102, 126, 234, 0.1);
+    background-color: #fafbfe;
+}
+
+.tabla-container {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla-usuarios thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.tabla-usuarios th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-usuarios td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tabla-usuarios tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabla-usuarios tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== MODAL DE REGISTRO ===== */
+.modal-registro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(2px);
+    }
+}
+
+.modal-registro.ModalOculto {
+    display: none !important;
+}
+
+.modal-registro-caja {
+    position: relative;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-registro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.modal-registro-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+    text-align: left;
+}
+
+.btn-cerrar-modal {
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.btn-cerrar-modal:hover {
+    color: #333;
+    background-color: #f5f5f5;
+    transform: rotate(90deg);
+}
+
+.btn-cerrar-modal svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ===== FORMULARIO REGISTRO ===== */
+.formulario-registro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-formulario label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grupo-formulario input,
+.grupo-formulario select {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102, 126, 234, 0.25), inset 0 0 4px rgba(102, 126, 234, 0.1);
+    background-color: #fafbfe;
+}
+
+.grupo-formulario select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+    background-color: white;
+}
+
+/* ===== BOTONES REGISTRO ===== */
+.botones-registro {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    justify-content: flex-end;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #da190b;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn-guardar {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.35);
+    transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 768px) {
+    .usuarios-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .header-left,
+    .header-right {
+        flex-direction: column;
+    }
+    
+    .input-buscar {
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .tabla-container {
+        padding: 10px;
+    }
+    
+    .tabla-usuarios {
+        font-size: 12px;
+    }
+    
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: 8px;
+    }
+
+    .modal-registro-caja {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .botones-registro {
+        flex-direction: column;
+    }
+}

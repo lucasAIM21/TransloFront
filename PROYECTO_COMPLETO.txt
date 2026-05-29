@@ -1,0 +1,2361 @@
+═══════════════════════════════════════════════════════════════════════════════
+    PROYECTO TRANSLOGISTICA - DOCUMENTACIÓN COMPLETA
+    Contenido ordenado por prioridad de creación (desde cero)
+═══════════════════════════════════════════════════════════════════════════════
+
+ORDEN DE CREACIÓN:
+1. Archivos HTML (Estructura del proyecto)
+2. Archivos CSS (Estilos visuales)
+3. Archivos JavaScript (Lógica y funcionalidad)
+
+═══════════════════════════════════════════════════════════════════════════════
+NIVEL 1: ARCHIVOS HTML (ESTRUCTURA BASE)
+═══════════════════════════════════════════════════════════════════════════════
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: index.html
+RUTA: /index.html
+DESCRIPCIÓN: Página de inicio del proyecto - Login de usuarios
+───────────────────────────────────────────────────────────────────────────────
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN - TRANSLOGISTICA</title>
+    <link rel="stylesheet" href="styles/styles_principal.css">
+    <link rel="stylesheet" href="styles/login_styles.css">
+</head>
+<body class="bodyLogin">
+    <div class="contenedorLogin">
+        <div class="cajaLogin">
+            <h2>TRANSLOGISTICA</h2>
+            <p class="subtituloLogin">Ingresa tus credenciales</p>
+            
+            <form class="formularioLogin" id="formularioLogin">
+                <div class="grupoFormulario">
+                    <label for="usuario">Usuario o Email:</label>
+                    <input 
+                        type="text" 
+                        id="usuario" 
+                        name="usuario" 
+                        placeholder="Ingresa tu usuario o email"
+                        required
+                    >
+                </div>
+
+                <div class="grupoFormulario">
+                    <label for="contrasena">Contraseña:</label>
+                    <input 
+                        type="password" 
+                        id="contrasena" 
+                        name="contrasena" 
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    >
+                </div>
+
+                <div class="recordarMe">
+                    <input type="checkbox" id="recordarme" name="recordarme">
+                    <label for="recordarme">Recuérdame</label>
+                </div>
+
+                <div class="btnCentrado">
+                    <button type="submit" class="btnLogin" id="btnLogin">Iniciar Sesión</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    
+    <script src="./Scripts/login.js"></script>
+</body>
+</html>
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: Principal.html
+RUTA: /views/Principal.html
+DESCRIPCIÓN: Página principal de la aplicación - Gestión de datos, guías y gastos
+───────────────────────────────────────────────────────────────────────────────
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRANSLOGISTICA - Principal</title>
+    <link rel="stylesheet" href="../styles/styles_principal.css">
+    <link rel="stylesheet" href="../styles/principal_styles.css">
+</head>
+<body class="bodyPrincipal">
+    <!-- HEADER -->
+    <header class="headerPrincipal">
+        <div class="headerContenido">
+            <h1 class="logoHeader">TRANSLOGISTICA</h1>
+            <button class="btnLogout" id="btnLogout">Cerrar Sesión</button>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <h2>TRANSLOGISTICA</h2>
+        <br>
+        <div class="btnCentrado">
+            <button type="submit" id="btnAgregar">Agregar</button>
+        </div>
+        <br>
+        <!-- FORMULARIO -->
+        <div id="ModalDatos" class="ModalDatos ModalOculto">
+            <div class="ModalCaja">
+                <h2>Agregar Datos</h2>
+                <div class="btnCentrado">
+                    <button id="btnDatos" class="btnForm">Datos</button>
+                    <button id="btnGuias" class="btnForm">Guias</button>
+                    <button id="btnGastos" class="btnForm">Gastos</button>
+                </div>
+                <form class="formulario" id="formulario">
+
+                    <div id="DatosForm">
+                        <input id="Fecha" type="datetime-local" name="Fecha" placeholder="Fecha">
+                        <input id="Origen" type="text" name="Origen" placeholder="Origen">
+                        <input id="Destino" type="text" name="Destino" placeholder="Destino">
+                        <input id="Cliente" type="text" name="Cliente" placeholder="Cliente">
+                        <input id="Carga" type="text" name="Carga" placeholder="Carga">
+                        <input id="Flete" type="text" name="Flete" placeholder="Flete">
+                        <input id="Viatico" type="text" name="Viatico" placeholder="Viáticos">    
+                    </div>
+
+                    <div id="GuiasForm" class="ModalOculto">
+                        <!-- G.R. Remitente -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                            <h3 class="titulo-remitente">
+                                G.R. Remitente
+                                <input id="txtGRR" type="text" style="width: 200px;">
+                                <button id="btnAgregarGRR" type="button" class="btn-plus">+</button>
+                            </h3>
+                            <div id="LGRR" class="ModalOculto">
+                                <table id="ListaGRRPOST" >
+                                    <thead>
+                                        <tr>
+                                            <th>GRR</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGRR">
+                                        <!-- Se Agregan GRR Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- G.R. Transportista -->
+                        <div style="display: flex; flex-direction: column;">
+                            <h3 class="titulo-remitente">
+                                G.R. Transportista
+                                <input id="txtGRT" type="text" style="width: 200px;">
+                                <button id="btnAgregarGRT" type="button" class="btn-plus">+</button>
+                            </h3>
+                            <div id="LGRT" class="ModalOculto">
+                                <table id="ListaGRTPOST" >
+                                    <thead>
+                                        <tr>
+                                            <th>GRT</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGRT">   
+                                        <!-- Se Agregan GRT Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="GastosForm" class="ModalOculto">
+                        <div>
+                            Combustible:
+                            <input type="text" id="Galones" placeholder="Combustible (Galones)">
+                            <input type="number" id="PrecioGalon" placeholder="Precio por Galon">    
+                        </div>
+                        <div>
+                            Peajes:
+                            <input id="Ubicacion" type="text" placeholder="Ubicación">
+                            <input id="Costo" type="number" placeholder="Costo">
+                            <button id="btnAgregarPeaje" type="button" class="btn-plus">+</button>
+                            <div id="ListaPeajes" class="ListaPeajes">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Ubicación</th>
+                                            <th>Costo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaPeajes">
+                                        <!-- Se Agregan Peajes Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            Gastos Varios:
+                            <input id="Descripcion" type="text" placeholder="Descripción">
+                            <input id="Monto" type="number" placeholder="Costo">
+                            <button id="btnAgregarGasto" type="button" class="btn-plus">+</button>
+                            <div id="ListaGastosVarios" class="ListaGastosVarios">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Costo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TablaGastosVarios">
+                                        <!-- Se Agregan Gastos Varios Dinamicamente a la tabla -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btnCentrado">
+                        <div id="DivBtnGuardar" class="ModalOculto">
+                            <button id="btnGuardar" type="submit">Guardar</button>
+                        </div>
+                        <div id="DivBtnEditar" class="ModalOculto">
+                            <button id="btnEditar" type="button">Editar</button>
+                        </div >
+                        <button id="btnCancelar" type="button">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Cntenedores de vista de los datos -->
+        <div id="ContenedorDatos" class="ContenedorDatos ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <h3>Datos</h3>
+                <div>
+                    Fecha: <span id="fecha" style="margin-right: 10px;"></span>
+                    <br>
+                    Origen: <span id="origen" style="margin-right: 10px;"></span>
+                    <br>
+                    Destino: <span id="destino" style="margin-right: 10px;"></span>
+                    <br>
+                    Cliente: <span id="cliente" style="margin-right: 10px;"></span>
+                    <br>
+                    Carga: <span id="carga" style="margin-right: 10px;"></span>
+                    <br>
+                    Flete: <span id="flete" style="margin-right: 10px;"></span>
+                    <br>
+                    Viaticos: <span id="viaticos" style="margin-right: 10px;"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="ContenedorGuias" class="ContenedorGuias ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <div>
+                    <h3>Guias</h3>
+                    <div style="margin-right: 10px; font-weight: bold;">GRR:</div>
+                    <ul id="ListaGRR" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de GRR dinámicos -->
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">GRT:</div>
+                    <ul id="ListaGRT" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de GRT dinámicos -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="ContenedorGastos" class="ContenedorGastos ModalOculto">
+            <div class="ModalCaja">
+                <button class="btnCerrar btnCerrarJS">X</button>
+                <h3>Gastos</h3>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Combustible:</div>
+                    <ul id="ListaCombustible" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Combustible dinámicos -->
+                         <li>Galones: <span id="SpanGalones" style="margin-right: 10px;"></span></li>
+                         <li>Precio por Galon: <span id="SpanPrecioUnit" style="margin-right: 10px;"></span></li>
+                         <li>Precio Pagado: <span id="SpanPago" style="margin-right: 10px;"></span></li>
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Peajes:</div>
+                    <ul id="ListaPeaje" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Peajes dinámicos -->
+                    </ul>
+                </div>
+                <div>
+                    <div style="margin-right: 10px; font-weight: bold;">Gastos Varios:</div>
+                    <ul id="ListaGV" style="margin:0; padding:0; list-style:none;">
+                        <!-- Elementos de Gastos Varios dinámicos -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!---->
+
+        <div id="TablaDatos">
+            <table id="TablaPrincipal" class="tabla-compacta">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Datos</th>
+                        <th>Guias</th>
+                        <th>Gastos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatos">
+                    <!-- filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+<script src="../Scripts/js.js"></script>
+</body>
+</html>
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: Usuarios.html
+RUTA: /views/Usuarios.html
+DESCRIPCIÓN: Página de gestión de usuarios del sistema
+───────────────────────────────────────────────────────────────────────────────
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="../styles/styles_principal.css">
+    <link rel="stylesheet" href="../styles/usuarios_styles.css">
+</head>
+<body class="bodyPrincipal">
+    <div class="usuarios-modal">
+        <!-- Encabezado con botón de agregar y búsqueda -->
+        <div class="usuarios-header">
+            <div class="header-left">
+                <button class="btn btn-primary" id="btnAgregarUsuario">
+                    ➕ Agregar Usuario
+                </button>
+            </div>
+            <div class="header-right">
+                <input 
+                    type="text" 
+                    class="input-buscar" 
+                    id="inputBuscar" 
+                    placeholder="Buscar usuario por nombre o DNI..."
+                >
+                <button class="btn btn-search" id="btnBuscar">
+                    🔍 Buscar
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabla de usuarios -->
+        <div class="tabla-container">
+            <table class="tabla-usuarios">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Rol</th>
+                        <th>Empresa</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaUsuariosBody">
+                    <!-- Los datos se agregarán dinámicamente con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Registro de Usuario -->
+    <div class="modal-registro ModalOculto" id="modalRegistroUsuario">
+        <div class="modal-registro-caja">
+            <div class="modal-registro-header">
+                <h2>Registrar Nuevo Usuario</h2>
+                <button class="btn-cerrar-modal" id="btnCerrarModalRegistro">&times;</button>
+            </div>
+            
+            <form class="formulario-registro" id="formularioRegistro">
+                <!-- Nombre -->
+                <div class="grupo-formulario">
+                    <label for="nombre">Nombre:</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        placeholder="Ingresa el nombre"
+                        required
+                    >
+                </div>
+
+                <!-- Apellido -->
+                <div class="grupo-formulario">
+                    <label for="apellido">Apellido:</label>
+                    <input 
+                        type="text" 
+                        id="apellido" 
+                        name="apellido" 
+                        placeholder="Ingresa el apellido"
+                        required
+                    >
+                </div>
+
+                <!-- DNI -->
+                <div class="grupo-formulario">
+                    <label for="dni">DNI:</label>
+                    <input 
+                        type="text" 
+                        id="dni" 
+                        name="dni" 
+                        placeholder="Ingresa el DNI"
+                        required
+                    >
+                </div>
+
+                <!-- Rol -->
+                <div class="grupo-formulario">
+                    <label for="rol">Rol:</label>
+                    <select id="rol" name="rol" required>
+                        <option value="">-- Selecciona un rol --</option>
+                        <option value="admin">Administrador</option>
+                        <option value="usuario">Usuario</option>
+                        <option value="operador">Operador</option>
+                        <option value="gerente">Gerente</option>
+                    </select>
+                </div>
+
+                <!-- Empresa -->
+                <div class="grupo-formulario">
+                    <label for="empresa">Empresa:</label>
+                    <select id="empresa" name="empresa" required>
+                        <option value="">-- Selecciona una empresa --</option>
+                        <option value="translogistica">Translogística</option>
+                        <option value="express">Express</option>
+                        <option value="logisticapro">Logística Pro</option>
+                        <option value="shipping">Shipping Global</option>
+                    </select>
+                </div>
+
+                <!-- Botones -->
+                <div class="botones-registro">
+                    <button type="button" class="btn btn-cancelar" id="btnCancelarRegistro">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-guardar" id="btnGuardarUsuario">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../scripts/Usuarios.js"></script>
+</body>
+</html>
+
+
+═══════════════════════════════════════════════════════════════════════════════
+NIVEL 2: ARCHIVOS CSS (ESTILOS)
+═══════════════════════════════════════════════════════════════════════════════
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: styles_principal.css
+RUTA: /styles/styles_principal.css
+DESCRIPCIÓN: Estilos base principales para todas las páginas (reset, header, tablas, modales)
+───────────────────────────────────────────────────────────────────────────────
+
+/* ===== RESET / BASE ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.bodyPrincipal {
+    padding-top: 70px;
+}
+
+/* ===== HEADER ===== */
+.headerPrincipal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.headerContenido {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoHeader {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btnLogout {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnLogout:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.contenedor {
+    width: 95%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+h2, h3 {
+    text-align: center;
+    margin: 10px 0 20px 0;
+    color: #333;
+}
+
+h2 {
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #555;
+}
+
+/* ===== FORMULARIO ===== */
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.formulario input {
+    padding: 12px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== BOTONES GENERALES ===== */
+.btnCentrado {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btnCentrado button {
+    font-size: 14px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+    background-color: #667eea;
+    color: white;
+}
+
+button:hover {
+    background-color: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#btnAgregar {
+    background-color: #667eea;
+    color: white;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#btnAgregar:hover {
+    background-color: #5568d3;
+}
+
+.btnForm {
+    background-color: #764ba2;
+    margin: 0 5px;
+}
+
+.btnForm:hover {
+    background-color: #663a8a;
+}
+
+.btnGuardar, #btnGuardar {
+    background-color: #4caf50;
+}
+
+.btnGuardar:hover, #btnGuardar:hover {
+    background-color: #45a049;
+}
+
+.btnCancelar, #btnCancelar {
+    background-color: #f44336;
+}
+
+.btnCancelar:hover, #btnCancelar:hover {
+    background-color: #da190b;
+}
+
+.btnEditar, #btnEditar {
+    background-color: #2196f3;
+}
+
+.btnEditar:hover, #btnEditar:hover {
+    background-color: #0b7dda;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #5568d3;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-search {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-search:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-editar {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
+/* ===== TABLA ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    word-break: break-word;
+}
+
+th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ===== MODAL (OVERLAY) ===== */
+.ModalDatos,
+.ContenedorDatos,
+.ContenedorGuias,
+.ContenedorGastos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#GuiasForm h3 {
+    text-align: left;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* ===== VISIBILIDAD ===== */
+.ModalOculto {
+    display: none;
+}
+
+/* ===== CAJA DEL MODAL (REUTILIZABLE) ===== */
+.ModalCaja {
+    position: relative;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 800px;
+    box-sizing: border-box;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.btnCerrar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnCerrar:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.titulo-remitente {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.titulo-remitente input {
+    flex: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 100%;
+        margin: 20px 0;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    .btnCentrado {
+        flex-direction: column;
+    }
+
+    .btnCentrado button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .ModalCaja {
+        width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+    }
+}
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: login_styles.css
+RUTA: /styles/login_styles.css
+DESCRIPCIÓN: Estilos específicos para la página de login
+───────────────────────────────────────────────────────────────────────────────
+
+/* ===== ESTILOS ESPECÍFICOS DEL LOGIN ===== */
+
+.bodyLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.contenedorLogin {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.cajaLogin {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cajaLogin h2 {
+    margin-top: 0;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.subtituloLogin {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* ===== FORMULARIO LOGIN ===== */
+.formularioLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupoFormulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupoFormulario label {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+.grupoFormulario input[type="text"],
+.grupoFormulario input[type="password"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.grupoFormulario input[type="text"]:focus,
+.grupoFormulario input[type="password"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== RECORDAR ME ===== */
+.recordarMe {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.recordarMe input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.recordarMe label {
+    cursor: pointer;
+    margin: 0;
+    font-weight: normal;
+    color: #666;
+}
+
+/* ===== BOTONES LOGIN ===== */
+.btnLogin {
+    background-color: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btnLogin:hover {
+    background-color: #5568d3;
+}
+
+.btnLogin:active {
+    transform: scale(0.98);
+}
+
+.btnRegistro {
+    background-color: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.btnRegistro:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* ===== SEPARADOR ===== */
+.separador {
+    text-align: center;
+    color: #ccc;
+    font-size: 12px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.separador::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+}
+
+.separador {
+    background: white;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.separador::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.separador::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+/* ===== ENLACES ===== */
+.enlaceAyuda {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.enlaceAyuda a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.enlaceAyuda a:hover {
+    color: #5568d3;
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .contenedorLogin {
+        max-width: 100%;
+    }
+    
+    .cajaLogin {
+        padding: 30px 20px;
+    }
+    
+    .cajaLogin h2 {
+        font-size: 24px;
+    }
+}
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: principal_styles.css
+RUTA: /styles/principal_styles.css
+DESCRIPCIÓN: Estilos específicos de la página Principal (vacío, hereda estilos base)
+───────────────────────────────────────────────────────────────────────────────
+
+/* ===== PRINCIPAL PAGE ESPECÍFICO ===== */
+
+/* Estilos específicos de la página Principal irán aquí */
+/* Por ahora está vacío, pero los estilos del contenedor y modales se heredan de styles_principal.css */
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: usuarios_styles.css
+RUTA: /styles/usuarios_styles.css
+DESCRIPCIÓN: Estilos específicos para la página de gestión de usuarios
+───────────────────────────────────────────────────────────────────────────────
+
+/* ===== USUARIOS PAGE ESPECÍFICO ===== */
+
+.usuarios-modal {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.usuarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    gap: 20px;
+}
+
+.header-left {
+    display: flex;
+    gap: 10px;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-buscar {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+.input-buscar:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+.tabla-container {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla-usuarios thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.tabla-usuarios th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-usuarios td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tabla-usuarios tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabla-usuarios tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== MODAL DE REGISTRO ===== */
+.modal-registro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-registro.ModalOculto {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-registro-caja {
+    position: relative;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-registro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.modal-registro-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+    text-align: left;
+}
+
+.btn-cerrar-modal {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-cerrar-modal:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+/* ===== FORMULARIO REGISTRO ===== */
+.formulario-registro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-formulario label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grupo-formulario input,
+.grupo-formulario select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    background-color: #f9f9ff;
+}
+
+.grupo-formulario select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+}
+
+/* ===== BOTONES REGISTRO ===== */
+.botones-registro {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    justify-content: flex-end;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover {
+    background-color: #da190b;
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-guardar {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-guardar:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 768px) {
+    .usuarios-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .header-left,
+    .header-right {
+        flex-direction: column;
+    }
+    
+    .input-buscar {
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .tabla-container {
+        padding: 10px;
+    }
+    
+    .tabla-usuarios {
+        font-size: 12px;
+    }
+    
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: 8px;
+    }
+}
+
+
+═══════════════════════════════════════════════════════════════════════════════
+NIVEL 3: ARCHIVOS JAVASCRIPT (LÓGICA)
+═══════════════════════════════════════════════════════════════════════════════
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: login.js
+RUTA: /Scripts/login.js
+DESCRIPCIÓN: Lógica de la página de login - redirección a página principal
+───────────────────────────────────────────────────────────────────────────────
+
+const btn = document.getElementById("btnLogin");
+
+btn.addEventListener("click", () => {
+    window.location.href = "views/Principal.html";
+});
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: js.js (Scripts)
+RUTA: /Scripts/js.js
+DESCRIPCIÓN: Lógica principal de la página Principal - gestión de datos, guías y gastos
+───────────────────────────────────────────────────────────────────────────────
+
+const API_URL = "https://laimserver.duckdns.org";
+
+//wdawdsadwad
+
+let datos = [];
+const form=document.getElementById("formulario");
+const btnAgregar=document.getElementById("btnAgregar");
+const btnEditar=document.getElementById("btnEditar");
+const btnCancelar=document.getElementById("btnCancelar");
+const btnAgregarGRR=document.getElementById("btnAgregarGRR");
+const btnAgregarGRT=document.getElementById("btnAgregarGRT");
+const txtGRR=document.getElementById("txtGRR");
+const txtGRT=document.getElementById("txtGRT");
+const btnAgregarPeaje=document.getElementById("btnAgregarPeaje");
+const btnAgregarGasto=document.getElementById("btnAgregarGasto");
+
+
+
+let GRRs = [];
+let GRTs = [];
+let Peajes = [];
+let Gastos = [];
+
+let DatoIdActual = null;
+
+
+async function CargarDatos() {
+    try{
+        const response = await fetch(`${API_URL}/api/datos`);
+        datos = await response.json();
+        console.log("Datos cargados:", datos);
+        
+        
+    }catch(error){
+        console.error("Error fetching data:", error);
+    }
+}
+
+function ObtenerDatosFormulario(){
+    
+    const data = Object.fromEntries(new FormData(form));
+
+    const Galones = document.getElementById("Galones").value;
+    const PrecioGalon = document.getElementById("PrecioGalon").value;
+
+    data.Combustible = {
+        Galones: Galones,
+        PrecioGalon: PrecioGalon
+    };
+
+    data.GRR = GRRs;
+    data.GRT = GRTs;
+    data.Peajes = Peajes;
+    data.GastosImprevistos = Gastos;
+
+    return data;
+}
+
+//POST de Datos:
+form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    
+    /*if(!ValidarCampos()){
+        alert("Complete todos los campos")
+        return;
+    }*/
+    const data = ObtenerDatosFormulario();
+
+    console.log("Datos a enviar:", data);
+    try {
+        await fetch(`${API_URL}/api/datos`, {
+            method: "POST",
+            headers: {"content-type":"application/json"},
+            body: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.error("Error al subir los datos: ",error)
+    }
+    document.getElementById("ModalDatos").classList.add("ModalOculto");
+    RellenarTabla();
+});
+
+function ValidarCampos() {
+    const form = document.querySelector(".formulario");
+    const inputs = form.querySelectorAll("input");
+    
+    for (let input of inputs) {
+        if (input.value.trim() === "") {
+            console.warn(`El campo ${input.name} está vacío.`);
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+//Rellenar campos de Datos:
+
+async function RellenarTabla() { 
+    await CargarDatos();
+    const tbody = document.getElementById("tablaDatos");
+    tbody.innerHTML = ""; // limpiar tabla
+    
+    datos.forEach(dato => {
+        const tr = document.createElement("tr");
+        const td1 = document.createElement("td");
+        td1.textContent=new Date(dato.Fecha).toLocaleDateString("es-PE");
+        tr.appendChild(td1);
+        
+        // Lista de campos según tu tabla
+        const Botones = [
+            "Datos",
+            "Guias",
+            "Gastos"
+        ];
+        
+        Botones.forEach(Nombre => {
+            const td = document.createElement("td");
+            const btn = CrearBotonVista(dato.DatoId, Nombre, `Contenedor${Nombre}`);
+            td.appendChild(btn);
+            tr.appendChild(td);
+        });
+        
+        const tdAcciones = document.createElement("td");
+
+        const btnEditar = CrearBotonEditar(dato.DatoId);
+        tdAcciones.appendChild(btnEditar);
+
+        const btnEliminar = CrearBotonEliminar(dato.DatoId);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+
+        tbody.appendChild(tr);
+    });
+}
+
+function RellenarForm(id){
+    const datoActual = datos.find(d => d.DatoId === id);
+
+    document.getElementById("Fecha").value = new Date(datoActual.Fecha).toISOString().slice(0,16);
+    document.getElementById("Origen").value = datoActual.Origen;
+    document.getElementById("Destino").value = datoActual.Destino;
+    document.getElementById("Cliente").value = datoActual.Cliente;
+    document.getElementById("Carga").value = datoActual.Carga;
+    document.getElementById("Flete").value = datoActual.Flete;
+    document.getElementById("Viatico").value = datoActual.Viatico;
+
+    datoActual.GRR.forEach(grr => {
+        CrearFilaGRR(grr);
+    });
+
+    datoActual.GRT.forEach(grt => {
+        CrearFilaGRT(grt);
+    });
+
+    datoActual.Peajes.forEach(p => {
+        CrearFilaPeaje(p.Costo, p.Ubicacion);
+    });
+
+    datoActual.GastosImprevistos.forEach(g => {
+        CrearFilaGasto(g.Monto, g.Descripcion);
+    });
+
+    document.getElementById("Galones").value = datoActual.Combustible.galones;
+    document.getElementById("PrecioGalon").value = datoActual.Combustible.PrecioGalon;
+
+}
+
+function LimpiarForm(){
+    document.getElementById("Fecha").value = "";
+    document.getElementById("Origen").value = "";
+    document.getElementById("Destino").value = "";
+    document.getElementById("Cliente").value = "";
+    document.getElementById("Carga").value = "";
+    document.getElementById("Flete").value = "";
+    document.getElementById("Viatico").value = "";
+
+    GRRs = [];
+    GRTs = [];
+    Peajes = [];
+    Gastos = [];
+
+    document.getElementById("TablaGRR").innerHTML="";
+    document.getElementById("TablaGRT").innerHTML="";
+    document.getElementById("TablaPeajes").innerHTML="";
+    document.getElementById("TablaGastosVarios").innerHTML="";
+
+    document.getElementById("Galones").value = "";
+    document.getElementById("PrecioGalon").value = "";
+
+    document.getElementById("Costo").value = "";
+    document.getElementById("Ubicacion").value = "";
+
+    document.getElementById("Monto").value = "";
+    document.getElementById("Descripcion").value = "";
+}
+
+
+//Rellenar campos de Vista (3 funciones):
+
+function RellenarModalDatos(id) {
+    const dato= datos.find(d=> d.DatoId === id);
+    
+    if(!dato){
+        console.error("Dato no encontrado", id);
+    }
+    
+    const fecha =document.getElementById("fecha");
+    const origen =document.getElementById("origen");
+    const destino =document.getElementById("destino");
+    const cliente =document.getElementById("cliente");
+    const carga =document.getElementById("carga");
+    const flete =document.getElementById("flete");
+    const viaticos=document.getElementById("viaticos");
+    
+    const fechaFormateada = new Date(dato.Fecha).toLocaleDateString("es-PE");
+    fecha.textContent= fechaFormateada;
+    origen.textContent= dato.Origen;
+    destino.textContent= dato.Destino;
+    cliente.textContent= dato.Cliente;
+    carga.textContent= dato.Carga;
+    flete.textContent= `S/ ${dato.Flete}`;
+    viaticos.textContent= `S/ ${dato.Viatico}`;
+    
+}
+
+function RellenarModalGuias(id){
+    const dato=datos.find(d=> d.DatoId === id);
+    
+    if(!dato){
+        console.error("Dato no encontrado", id);
+        return;
+    }
+    
+    const ulR = document.getElementById("ListaGRR");
+    const ulT = document.getElementById("ListaGRT")
+    
+    ulR.innerHTML="";
+    ulT.innerHTML="";
+    
+    dato.GRR.forEach(grr =>{
+        const li = document.createElement("li");
+        li.textContent= grr;
+        console.log(li.textContent);
+        ulR.appendChild(li);
+    });
+    
+    dato.GRT.forEach(grt =>{
+        const li = document.createElement("li");
+        li.textContent= grt;
+        ulT.appendChild(li);
+    });
+    
+    
+}
+
+function RellenarModalGastos(id){
+    const dato = datos.find(d=> d.DatoId === id);
+    
+    if(!dato){
+        console.error("Dato no encontrado", id);
+        return; 
+    }
+    
+    //COMBUSTIBLE
+    const galones = document.getElementById("SpanGalones");
+    const precio = document.getElementById("SpanPrecioUnit");
+    const pago = document.getElementById("SpanPago");
+    
+    galones.textContent = dato.Combustible.galones;
+    precio.textContent = dato.Combustible.PrecioGalon;
+    let PrecioFinal = parseFloat(dato.Combustible.galones)*parseFloat(dato.Combustible.PrecioGalon);
+    pago.textContent = PrecioFinal.toFixed(2);
+    
+    //PEAJES
+    const ulP = document.getElementById("ListaPeaje");
+    ulP.innerHTML="";
+    dato.Peajes.forEach(p=>{
+        const liCostoUbi = document.createElement("li");
+        liCostoUbi.textContent=`S/ ${p.Costo} - ${p.Ubicacion}`;
+
+        ulP.appendChild(liCostoUbi);
+    });
+
+    //GASTOS VARIOS
+    const ulV = document.getElementById("ListaGV"); 
+    ulV.innerHTML="";
+    dato.GastosImprevistos.forEach(g=>{
+        const liCostoDesc = document.createElement("li");
+        liCostoDesc.textContent=`S/ ${g.Monto} - ${g.Descripcion}`;
+        ulV.appendChild(liCostoDesc);
+    });
+    
+}
+
+
+function CrearBotonVista(DatoId, texto,modal){
+    const btn = document.createElement("button");
+    btn.textContent = texto;
+    btn.classList.add("btn-compacto");
+    btn.addEventListener("click", () => {
+        if(texto==="Datos"){
+            RellenarModalDatos(DatoId);
+        }else if(texto==="Guias"){
+            RellenarModalGuias(DatoId);
+        }else if(texto==="Gastos"){
+            RellenarModalGastos(DatoId);
+        }
+        
+        const modalElement = document.getElementById(modal);
+        modalElement.classList.remove("ModalOculto");
+    });
+    
+    btn.dataset.id = DatoId;
+    return btn;
+}
+
+function CrearFilaGRR(valor){
+    const TGRR = document.getElementById("TablaGRR");
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    td.textContent = valor ? valor : document.getElementById("txtGRR").value;
+    tr.appendChild(td);
+
+    const deleteBtn = CrearBotonEliminarGuia(document.getElementById("txtGRR").value, "GRR",tr);
+    actionTd.appendChild(deleteBtn);
+
+
+    tr.appendChild(actionTd);
+    TGRR.appendChild(tr);
+
+    if(!valor){
+        GRRs.push(document.getElementById("txtGRR").value);
+    }
+    document.getElementById("txtGRR").value = "";
+
+}
+
+function CrearFilaGRT(valor){
+    const TGRT = document.getElementById("TablaGRT");
+    const tr = document.createElement("tr");
+    const tdGRT = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    tdGRT.textContent = valor ? valor : document.getElementById("txtGRT").value;
+    tr.appendChild(tdGRT);
+
+    const deleteBtn = CrearBotonEliminarGuia(document.getElementById("txtGRT").value, "GRT",tr);
+    actionTd.appendChild(deleteBtn);
+
+    tr.appendChild(actionTd);
+    TGRT.appendChild(tr);
+
+    if(!valor){
+        GRTs.push(document.getElementById("txtGRT").value);
+    }
+    document.getElementById("txtGRT").value = "";
+}
+
+function CrearFilaPeaje(Costo, Ubicacion){
+    const TPeajes = document.getElementById("TablaPeajes");
+    const tr = document.createElement("tr");
+    const tdCosto = document.createElement("td");
+    const tdUbicacion = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    tdCosto.textContent = Costo ? Costo : document.getElementById("Costo").value;
+    tdUbicacion.textContent = Ubicacion ? Ubicacion : document.getElementById("Ubicacion").value;
+
+    tr.appendChild(tdUbicacion);
+    tr.appendChild(tdCosto);
+
+    const deleteBtn = CrearBotonEliminarPeaje_Gasto(document.getElementById("Costo").value, document.getElementById("Ubicacion").value, tr,"Peaje");
+    actionTd.appendChild(deleteBtn);
+    tr.appendChild(actionTd);
+
+    TPeajes.appendChild(tr);
+
+    if(!Costo && !Ubicacion){
+        Peajes.push({
+            Costo: document.getElementById("Costo").value,
+            Ubicacion: document.getElementById("Ubicacion").value
+        });
+    }
+    document.getElementById("Costo").value = "";
+    document.getElementById("Ubicacion").value = "";
+    console.log(Peajes);
+
+}
+
+function CrearFilaGasto(Monto, Descripcion){
+    const TGastos = document.getElementById("TablaGastosVarios");
+    const tr = document.createElement("tr");
+    const tdMonto = document.createElement("td");
+    const tdDescripcion = document.createElement("td");
+    const actionTd = document.createElement("td");
+
+    tdMonto.textContent = Monto ? Monto : document.getElementById("Monto").value;
+    tdDescripcion.textContent = Descripcion ? Descripcion : document.getElementById("Descripcion").value;
+
+    tr.appendChild(tdDescripcion);
+    tr.appendChild(tdMonto);
+
+    const deleteBtn = CrearBotonEliminarPeaje_Gasto(document.getElementById("Monto").value, document.getElementById("Descripcion").value, tr,"Gasto");
+    actionTd.appendChild(deleteBtn);
+    tr.appendChild(actionTd);
+
+    TGastos.appendChild(tr);
+
+    if(!Monto && !Descripcion){
+        Gastos.push({
+            Monto: document.getElementById("Monto").value,
+            Descripcion: document.getElementById("Descripcion").value
+        });
+    }
+    document.getElementById("Monto").value = "";
+    document.getElementById("Descripcion").value = "";
+    console.log(Gastos);
+
+}
+
+function CrearBotonEliminar(DatoId){
+    const btn = document.createElement("button");
+    btn.textContent = "🗑️";
+    btn.classList.add("btn-compacto");  
+    btn.addEventListener("click", async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/datos/${DatoId}`, {
+                method: "DELETE"
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log(result.message);
+                console.log(`Dato con ID ${DatoId} eliminado.`);
+            }else{
+                const error = await response.json();
+                console.error("Error al eliminar el dato: ", error.message);
+            }
+
+        } catch (error) {
+            console.error("Error al eliminar el dato: ", error.message);
+        }
+    });
+    return btn;
+}
+
+function CrearBotonEditar(DatoId){
+    const btn = document.createElement("button");
+    btn.textContent = "✏️";
+    btn.classList.add("btn-compacto");
+    btn.addEventListener("click", () => {
+
+        DatoIdActual = DatoId;
+
+        document.getElementById("ModalDatos").classList.remove("ModalOculto");
+        document.getElementById("DivBtnEditar").classList.remove("ModalOculto");
+        document.getElementById("DivBtnGuardar").classList.add("ModalOculto");
+        GRRs = datos.find(d => d.DatoId === DatoId).GRR;
+        GRTs = datos.find(d => d.DatoId === DatoId).GRT;
+        Peajes = datos.find(d => d.DatoId === DatoId).Peajes;
+        Gastos = datos.find(d => d.DatoId === DatoId).Gastos;
+
+        document.getElementById("TablaGRR").innerHTML="";
+        document.getElementById("TablaGRT").innerHTML="";
+        document.getElementById("TablaPeajes").innerHTML="";
+        document.getElementById("TablaGastosVarios").innerHTML="";
+
+        RellenarForm(DatoId);
+
+    });
+
+    return btn;
+}
+
+function CrearBotonEliminarGuia(valor, tipo, fila){
+    const btn = document.createElement("button");
+    btn.textContent = "🗑️";
+    btn.classList.add("btn-compacto");
+    btn.addEventListener("click", () => {
+        if(tipo === "GRR"){
+            GRRs.splice(GRRs.indexOf(valor), 1);
+            fila.remove();
+        }else if(tipo === "GRT"){
+            GRTs.splice(GRTs.indexOf(valor), 1);
+            fila.remove();
+        }
+    });
+    return btn;
+}
+
+function CrearBotonEliminarPeaje_Gasto(Costo, Ubicacion, fila, tipo){
+    const btn = document.createElement("button");
+    btn.textContent = "🗑️";
+    btn.classList.add("btn-compacto");
+    if(tipo === "Peaje"){
+        btn.addEventListener("click", () => {
+            Peajes.splice(Peajes.indexOf({ Costo, Ubicacion }), 1);
+            fila.remove();
+        });
+    }else if(tipo === "Gasto"){
+        btn.addEventListener("click", () => {
+            Gastos.splice(Gastos.indexOf({ Monto: Costo, Descripcion: Ubicacion }), 1);
+            fila.remove();
+        });
+    }
+    return btn;
+
+}
+
+function OcultarForms(){
+    document.getElementById("DatosForm").classList.add("ModalOculto");
+    document.getElementById("GuiasForm").classList.add("ModalOculto");
+    document.getElementById("GastosForm").classList.add("ModalOculto");
+}
+
+
+//Agregar eventos a botones:
+
+btnAgregar.addEventListener("click", () =>{
+
+    LimpiarForm();
+
+    const modal = document.getElementById("ModalDatos");
+    document.getElementById("DivBtnGuardar").classList.remove("ModalOculto");
+    document.getElementById("DivBtnEditar").classList.add("ModalOculto");
+    modal.classList.remove("ModalOculto");
+
+});
+
+btnEditar.addEventListener("click", () => {
+    const data = ObtenerDatosFormulario();
+
+    try {
+        fetch(`${API_URL}/api/datos/${DatoIdActual}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+    }catch (error) {
+        console.error("Error al actualizar el dato: ", error);
+    }
+
+    document.getElementById("ModalDatos").classList.add("ModalOculto");
+    RellenarTabla();
+});
+
+btnCancelar.addEventListener("click", () => {
+    LimpiarForm();
+    const modal = document.getElementById("ModalDatos");
+    modal.classList.add("ModalOculto");
+});
+
+document.querySelectorAll(".btnCerrar").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const modal = btn.closest(".ModalDatos, .ContenedorDatos, .ContenedorGuias, .ContenedorGastos")
+        if(modal){
+            modal.classList.add("ModalOculto");
+        }
+    });
+});
+
+function BotonesDelForm(){
+    const botones=document.querySelectorAll(".btnForm");
+
+    botones.forEach(boton=>{
+        boton.addEventListener("click", function() {
+            const xd = this.textContent;
+            
+            OcultarForms();
+
+            document.getElementById(`${xd}Form`).classList.remove("ModalOculto");
+        });
+    });
+}
+
+btnAgregarGRR.addEventListener("click", () => {
+    CrearFilaGRR(null);
+});
+
+btnAgregarGRT.addEventListener("click", () => {
+    CrearFilaGRT(null);
+});
+
+txtGRR.addEventListener("focus", () => {
+    const listaGRR=document.getElementById("LGRR");
+    const listaGRT=document.getElementById("LGRT");
+    
+    listaGRT.classList.add("ModalOculto");
+    listaGRR.classList.remove("ModalOculto");
+
+});
+
+txtGRT.addEventListener("focus", () => {
+    const listaGRR=document.getElementById("LGRR");
+    const listaGRT=document.getElementById("LGRT");
+
+    listaGRR.classList.add("ModalOculto");
+    listaGRT.classList.remove("ModalOculto");
+});
+
+btnAgregarPeaje.addEventListener("click", () => {
+    CrearFilaPeaje(null, null);
+});
+
+btnAgregarGasto.addEventListener("click", () => {
+    CrearFilaGasto(null, null);
+});
+
+async function init(){
+    await RellenarTabla();
+    BotonesDelForm();
+}
+
+init();
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: Usuarios.js
+RUTA: /Scripts/Usuarios.js
+DESCRIPCIÓN: Lógica de la página de gestión de usuarios - registro, búsqueda, edición
+───────────────────────────────────────────────────────────────────────────────
+
+// ===== USUARIOS PAGE - REGISTRO DE USUARIO =====
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos del modal
+    const btnAgregarUsuario = document.getElementById('btnAgregarUsuario');
+    const modalRegistro = document.getElementById('modalRegistroUsuario');
+    const btnCerrarModal = document.getElementById('btnCerrarModalRegistro');
+    const btnCancelarRegistro = document.getElementById('btnCancelarRegistro');
+    const formularioRegistro = document.getElementById('formularioRegistro');
+    const btnGuardarUsuario = document.getElementById('btnGuardarUsuario');
+
+    // Función para abrir modal
+    function abrirModal() {
+        if (modalRegistro) {
+            modalRegistro.classList.remove('ModalOculto');
+            modalRegistro.style.display = 'flex';
+        }
+        if (formularioRegistro) {
+            formularioRegistro.reset();
+        }
+    }
+
+    // Función para cerrar modal
+    function cerrarModal() {
+        if (modalRegistro) {
+            modalRegistro.classList.add('ModalOculto');
+            modalRegistro.style.display = 'none';
+        }
+    }
+
+    // Abrir modal al hacer clic en "Agregar Usuario"
+    if (btnAgregarUsuario) {
+        btnAgregarUsuario.addEventListener('click', abrirModal);
+    }
+
+    // Cerrar modal al hacer clic en la X
+    if (btnCerrarModal) {
+        btnCerrarModal.addEventListener('click', cerrarModal);
+    }
+
+    // Cerrar modal al hacer clic en "Cancelar"
+    if (btnCancelarRegistro) {
+        btnCancelarRegistro.addEventListener('click', cerrarModal);
+    }
+
+    // Cerrar modal al hacer clic fuera de la caja del modal
+    if (modalRegistro) {
+        modalRegistro.addEventListener('click', function(event) {
+            if (event.target === modalRegistro) {
+                cerrarModal();
+            }
+        });
+    }
+
+    // Manejar envío del formulario
+    if (formularioRegistro) {
+        formularioRegistro.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener los valores del formulario
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const dni = document.getElementById('dni').value.trim();
+            const rol = document.getElementById('rol').value;
+            const empresa = document.getElementById('empresa').value;
+
+            // Validar que todos los campos estén llenos
+            if (!nombre || !apellido || !dni || !rol || !empresa) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            // Crear objeto con los datos del usuario
+            const nuevoUsuario = {
+                nombre: nombre,
+                apellido: apellido,
+                dni: dni,
+                rol: rol,
+                empresa: empresa
+            };
+
+            console.log('Nuevo usuario registrado:', nuevoUsuario);
+
+            // Aquí puedes hacer una llamada AJAX/Fetch a tu backend
+            // fetch('/api/usuarios', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(nuevoUsuario)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Usuario guardado:', data);
+            //     // Agregar usuario a la tabla
+            //     agregarUsuarioATabla(nuevoUsuario);
+            //     // Cerrar modal
+            //     cerrarModal();
+            //     formularioRegistro.reset();
+            //     alert(`Usuario ${nombre} ${apellido} registrado exitosamente`);
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            //     alert('Error al registrar el usuario');
+            // });
+
+            // Por ahora, agregamos el usuario a la tabla localmente
+            agregarUsuarioATabla(nuevoUsuario);
+            
+            // Cerrar modal y limpiar formulario
+            cerrarModal();
+            formularioRegistro.reset();
+
+            alert(`Usuario ${nombre} ${apellido} registrado exitosamente`);
+        });
+    }
+
+    // Inicializar búsqueda de usuarios
+    inicializarBusqueda();
+});
+
+// Función para agregar usuario a la tabla
+function agregarUsuarioATabla(usuario) {
+    const tablaBody = document.getElementById('tablaUsuariosBody');
+    
+    if (!tablaBody) return;
+
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+        <td>${usuario.nombre} ${usuario.apellido}</td>
+        <td>${usuario.dni}</td>
+        <td>${usuario.rol}</td>
+        <td>${usuario.empresa}</td>
+        <td>
+            <button class="btn btn-editar">✏️ Editar</button>
+            <button class="btn btn-eliminar">🗑️ Eliminar</button>
+        </td>
+    `;
+
+    tablaBody.appendChild(fila);
+
+    // Agregar eventos a los botones de editar y eliminar
+    const btnEditar = fila.querySelector('.btn-editar');
+    const btnEliminar = fila.querySelector('.btn-eliminar');
+
+    if (btnEditar) {
+        btnEditar.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Implementar lógica de editar
+            alert(`Editar usuario: ${usuario.nombre} ${usuario.apellido}`);
+        });
+    }
+
+    if (btnEliminar) {
+        btnEliminar.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Implementar lógica de eliminar
+            if (confirm(`¿Estás seguro de que deseas eliminar a ${usuario.nombre} ${usuario.apellido}?`)) {
+                fila.remove();
+                alert('Usuario eliminado exitosamente');
+            }
+        });
+    }
+}
+
+// Función de búsqueda de usuarios
+function buscarUsuarios(termino) {
+    const tablaBody = document.getElementById('tablaUsuariosBody');
+    
+    if (!tablaBody) return;
+    
+    const filas = tablaBody.querySelectorAll('tr');
+
+    filas.forEach(fila => {
+        const textoFila = fila.textContent.toLowerCase();
+        if (textoFila.includes(termino.toLowerCase())) {
+            fila.style.display = '';
+        } else {
+            fila.style.display = 'none';
+        }
+    });
+}
+
+// Inicializar eventos de búsqueda
+function inicializarBusqueda() {
+    const btnBuscar = document.getElementById('btnBuscar');
+    const inputBuscar = document.getElementById('inputBuscar');
+
+    if (btnBuscar && inputBuscar) {
+        btnBuscar.addEventListener('click', function(e) {
+            e.preventDefault();
+            buscarUsuarios(inputBuscar.value);
+        });
+
+        // Búsqueda en tiempo real
+        inputBuscar.addEventListener('keyup', function() {
+            if (this.value === '') {
+                const filas = document.querySelectorAll('#tablaUsuariosBody tr');
+                filas.forEach(fila => fila.style.display = '');
+            } else {
+                buscarUsuarios(this.value);
+            }
+        });
+    }
+}
+
+
+───────────────────────────────────────────────────────────────────────────────
+ARCHIVO: js.js
+RUTA: /js.js
+DESCRIPCIÓN: Script raíz del proyecto (no utilizado en esta estructura actual)
+───────────────────────────────────────────────────────────────────────────────
+
+// Este archivo puede permanecer vacío o contener scripts globales
+// que apliquen a todo el proyecto
+
+
+═══════════════════════════════════════════════════════════════════════════════
+RESUMEN DEL PROYECTO
+═══════════════════════════════════════════════════════════════════════════════
+
+NOMBRE: TRANSLOGISTICA - Sistema de Gestión de Datos, Guías y Gastos
+
+DESCRIPCIÓN: Aplicación web para gestionar datos de logística, incluyendo:
+- Login de usuarios
+- Página principal con gestión de datos, guías y gastos
+- Página de administración de usuarios del sistema
+- Diseño responsivo y moderno
+
+TECNOLOGÍAS:
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- API REST (https://laimserver.duckdns.org)
+
+ESTRUCTURA DE CARPETAS:
+```
+/Front
+├── index.html                    (Login principal)
+├── js.js                         (Script raíz)
+├── Scripts/
+│   ├── login.js                 (Lógica de login)
+│   ├── js.js                    (Lógica de Principal)
+│   └── Usuarios.js              (Lógica de Usuarios)
+├── styles/
+│   ├── styles_principal.css     (Estilos base)
+│   ├── login_styles.css         (Estilos de login)
+│   ├── principal_styles.css     (Estilos de principal)
+│   └── usuarios_styles.css      (Estilos de usuarios)
+└── views/
+    ├── Principal.html           (Página principal)
+    └── Usuarios.html            (Página de usuarios)
+```
+
+CARACTERÍSTICAS PRINCIPALES:
+1. Login seguro con redirección a página principal
+2. Gestión completa de datos con CRUD
+3. Administración de guías de remisión (GRR y GRT)
+4. Control de gastos (combustible, peajes, gastos varios)
+5. Gestión de usuarios del sistema
+6. Búsqueda en tiempo real de usuarios
+7. Modales para visualización de datos
+8. Diseño responsivo para dispositivos móviles
+
+API ENDPOINTS:
+- GET /api/datos - Obtener todos los datos
+- POST /api/datos - Crear nuevo dato
+- PUT /api/datos/{id} - Actualizar dato
+- DELETE /api/datos/{id} - Eliminar dato
+
+═══════════════════════════════════════════════════════════════════════════════
+FIN DE LA DOCUMENTACIÓN
+═══════════════════════════════════════════════════════════════════════════════

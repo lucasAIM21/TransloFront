@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN - TRANSLOGISTICA</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="styles/styles_principal.css">
+    <link rel="stylesheet" href="styles/icons.css">
+    <link rel="stylesheet" href="styles/login_styles.css">
 </head>
 <body class="bodyLogin">
     <div class="contenedorLogin">
@@ -15,12 +16,12 @@
             
             <form class="formularioLogin" id="formularioLogin">
                 <div class="grupoFormulario">
-                    <label for="usuario">Usuario o Email:</label>
+                    <label for="dni">DNI:</label>
                     <input 
                         type="text" 
-                        id="usuario" 
-                        name="usuario" 
-                        placeholder="Ingresa tu usuario o email"
+                        id="dni" 
+                        name="dni" 
+                        placeholder="Ingresa tu DNI"
                         required
                     >
                 </div>
@@ -46,18 +47,9 @@
                 </div>
             </form>
 
-            <div class="separador">o</div>
-
-            <div class="btnCentrado">
-                <button type="button" class="btnRegistro" id="btnRegistro">Crear Cuenta</button>
-            </div>
-
-            <p class="enlaceAyuda">
-                <a href="#" id="enlaceOlvide">¿Olvidaste tu contraseña?</a>
-            </p>
         </div>
     </div>
     
-    <script src="login.js"></script>
+    <script src="./Scripts/login.js"></script>
 </body>
 </html>
