@@ -1,9 +1,11 @@
 const API_URL = "https://laimserver.duckdns.org";
 
-//wdawdsadwad
-
+// ==================== VARIABLES GLOBALES ====================
 let datos = [];
-const form=document.getElementById("formulario");
+let datosAgrupados = {}; // { "2025-01": { datos: [...], diasConViajes: {...} } }
+let viajeActualSeleccionado = null;
+
+const form = document.getElementById("formulario");
 const btnAgregar=document.getElementById("btnAgregar");
 const btnEditar=document.getElementById("btnEditar");
 const btnCancelar=document.getElementById("btnCancelar");
@@ -25,15 +27,284 @@ let DatoIdActual = null;
 
 
 async function CargarDatos() {
-    try{
+    try {
         const response = await fetch(`${API_URL}/api/datos`);
         datos = await response.json();
         console.log("Datos cargados:", datos);
-        
-        
-    }catch(error){
+        AgruparDatosPorMes();
+    } catch (error) {
         console.error("Error fetching data:", error);
     }
+}
+
+// ==================== AGRUPAR DATOS POR MES/AÑO ====================
+function AgruparDatosPorMes() {
+    datosAgrupados = {};
+    
+    // Ordenar datos por fecha
+    const datosOrdenados = [...datos].sort((a, b) => new Date(a.Fecha) - new Date(b.Fecha));
+    
+    datosOrdenados.forEach(viaje => {
+        const fecha = new Date(viaje.Fecha);
+        const mesAño = fecha.toISOString().slice(0, 7); // "2025-01"
+        const dia = fecha.getDate();
+        
+        if (!datosAgrupados[mesAño]) {
+            datosAgrupados[mesAño] = {
+                mes: fecha.getMonth(),
+                año: fecha.getFullYear(),
+                viajes: [],
+                diasConViajes: {}
+            };
+        }
+        
+        datosAgrupados[mesAño].viajes.push(viaje);
+        
+        // Guardar el viaje en el día correspondiente
+        if (!datosAgrupados[mesAño].diasConViajes[dia]) {
+            datosAgrupados[mesAño].diasConViajes[dia] = [];
+        }
+        datosAgrupados[mesAño].diasConViajes[dia].push(viaje);
+    });
+}
+
+// ==================== RENDERIZAR ACORDEONES ====================
+function RenderizarAcordeones() {
+    const contenedor = document.getElementById("acordeonesContenedor");
+    contenedor.innerHTML = "";
+    
+    const meses = Object.keys(datosAgrupados).sort();
+    
+    meses.forEach(mesAño => {
+        const grupo = datosAgrupados[mesAño];
+        const fecha = new Date(grupo.año, grupo.mes, 1);
+        const nombreMes = fecha.toLocaleDateString("es-PE", { month: "long", year: "numeric" });
+        
+        // Crear acordeón
+        const acordeon = document.createElement("div");
+        acordeon.className = "acordeon";
+        
+        // Header del acordeón
+        const header = document.createElement("div");
+        header.className = "acordeon-header";
+        header.textContent = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1);
+        header.addEventListener("click", () => {
+            const contenido = acordeon.querySelector(".acordeon-contenido");
+            const esAbierto = contenido.classList.contains("abierto");
+            
+            // Cerrar todos los demás acordeones
+            document.querySelectorAll(".acordeon-contenido.abierto").forEach(c => {
+                if (c !== contenido) {
+                    c.classList.remove("abierto");
+                }
+            });
+            
+            // Abrir/cerrar este acordeón
+            contenido.classList.toggle("abierto");
+            header.classList.toggle("activo");
+        });
+        
+        // Contenido del acordeón (calendario)
+        const contenido = document.createElement("div");
+        contenido.className = "acordeon-contenido";
+        contenido.innerHTML = GenerarCalendario(mesAño, grupo);
+        
+        acordeon.appendChild(header);
+        acordeon.appendChild(contenido);
+        contenedor.appendChild(acordeon);
+    });
+}
+
+// ==================== GENERAR CALENDARIO ====================
+function GenerarCalendario(mesAño, grupo) {
+    const [año, mes] = mesAño.split("-").map(Number);
+    
+    // Primer día del mes y número de días
+    const primerDia = new Date(año, mes - 1, 1);
+    const ultimoDia = new Date(año, mes, 0);
+    const diasDelMes = ultimoDia.getDate();
+    const diaDelSemanaPrimer = primerDia.getDay();
+    
+    let html = '<div class="calendario-grid">';
+    
+    // Encabezados de días de la semana
+    const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    diasSemana.forEach(dia => {
+        html += `<div class="calendario-encabezado">${dia}</div>`;
+    });
+    
+    // Casillas vacías antes del primer día
+    for (let i = 0; i < diaDelSemanaPrimer; i++) {
+        html += '<div class="calendario-celda vacia"></div>';
+    }
+    
+    // Casillas de días
+    for (let dia = 1; dia <= diasDelMes; dia++) {
+        const tienViaje = grupo.diasConViajes[dia];
+        const clase = tienViaje ? "calendario-celda activa" : "calendario-celda inactiva";
+        const dataId = tienViaje ? `data-viaje-id="${tienViaje[0].DatoId}"` : "";
+        const onclick = tienViaje ? `onclick="AbrirModalVisualizacion(${tienViaje[0].DatoId})"` : "";
+        
+        html += `<div class="${clase}" ${dataId} ${onclick}>${dia}</div>`;
+    }
+    
+    html += '</div>';
+    return html;
+}
+
+// ==================== MODAL DE VISUALIZACIÓN ====================
+function AbrirModalVisualizacion(datoId) {
+    viajeActualSeleccionado = datoId;
+    
+    // Mostrar el modal
+    const modal = document.getElementById("modalVisualizacion");
+    modal.classList.remove("ModalOculto");
+    
+    // Resetear a la primera pestaña (Datos)
+    MostrarPestana("datos");
+    
+    // Llenar las secciones
+    LlenarSeccionDatos(datoId);
+    LlenarSeccionGuias(datoId);
+    LlenarSeccionGastos(datoId);
+}
+
+function LlenarSeccionDatos(datoId) {
+    const dato = datos.find(d => d.DatoId === datoId);
+    if (!dato) return;
+    
+    const fechaFormateada = new Date(dato.Fecha).toLocaleDateString("es-PE");
+    
+    document.getElementById("vizFecha").textContent = fechaFormateada;
+    document.getElementById("vizOrigen").textContent = dato.Origen;
+    document.getElementById("vizDestino").textContent = dato.Destino;
+    document.getElementById("vizCliente").textContent = dato.Cliente;
+    document.getElementById("vizCarga").textContent = dato.Carga;
+    document.getElementById("vizFlete").textContent = `S/ ${dato.Flete}`;
+    document.getElementById("vizViaticos").textContent = `S/ ${dato.Viatico}`;
+}
+
+function LlenarSeccionGuias(datoId) {
+    const dato = datos.find(d => d.DatoId === datoId);
+    if (!dato) return;
+    
+    const ulGRR = document.getElementById("vizListaGRR");
+    const ulGRT = document.getElementById("vizListaGRT");
+    
+    ulGRR.innerHTML = "";
+    ulGRT.innerHTML = "";
+    
+    dato.GRR.forEach(grr => {
+        const li = document.createElement("li");
+        li.textContent = grr;
+        ulGRR.appendChild(li);
+    });
+    
+    dato.GRT.forEach(grt => {
+        const li = document.createElement("li");
+        li.textContent = grt;
+        ulGRT.appendChild(li);
+    });
+}
+
+function LlenarSeccionGastos(datoId) {
+    const dato = datos.find(d => d.DatoId === datoId);
+    if (!dato) return;
+    
+    // Combustible
+    document.getElementById("vizGalones").textContent = dato.Combustible.galones;
+    document.getElementById("vizPrecioUnit").textContent = `S/ ${dato.Combustible.PrecioGalon}`;
+    const precioTotal = (parseFloat(dato.Combustible.galones) * parseFloat(dato.Combustible.PrecioGalon)).toFixed(2);
+    document.getElementById("vizPagoTotal").textContent = `S/ ${precioTotal}`;
+    
+    // Peajes
+    const ulPeajes = document.getElementById("vizListaPeaje");
+    ulPeajes.innerHTML = "";
+    dato.Peajes.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `S/ ${p.Costo} - ${p.Ubicacion}`;
+        ulPeajes.appendChild(li);
+    });
+    
+    // Gastos Varios
+    const ulGastos = document.getElementById("vizListaGastosVarios");
+    ulGastos.innerHTML = "";
+    dato.GastosImprevistos.forEach(g => {
+        const li = document.createElement("li");
+        li.textContent = `S/ ${g.Monto} - ${g.Descripcion}`;
+        ulGastos.appendChild(li);
+    });
+}
+
+// ==================== NAVEGACIÓN DE TABS CON SWIPE ====================
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+function MostrarPestana(nombrPestana) {
+    // Ocultar todas las pestañas
+    document.querySelectorAll(".modal-tab-content").forEach(tab => {
+        tab.classList.remove("modal-tab-activo");
+    });
+    
+    // Desactivar todos los botones
+    document.querySelectorAll(".modal-tab-btn").forEach(btn => {
+        btn.classList.remove("modal-tab-activo");
+    });
+    
+    // Mostrar la pestaña seleccionada
+    document.querySelector(`.modal-tab-content[data-tab="${nombrPestana}"]`).classList.add("modal-tab-activo");
+    document.querySelector(`.modal-tab-btn[data-tab="${nombrPestana}"]`).classList.add("modal-tab-activo");
+}
+
+function ConfigurarSwipeModal() {
+    const swipeContainer = document.querySelector(".modal-swipe-container");
+    
+    swipeContainer.addEventListener("touchstart", e => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, false);
+    
+    swipeContainer.addEventListener("touchend", e => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        
+        // Calcular diferencia y detectar dirección
+        const diffX = touchEndX - touchStartX;
+        const diffY = Math.abs(touchEndY - touchStartY);
+        
+        // Ignorar si el movimiento es principalmente vertical
+        if (Math.abs(diffX) < 50 || diffY > Math.abs(diffX)) {
+            return;
+        }
+        
+        // Obtener pestañas en orden
+        const tabs = ["datos", "guias", "gastos"];
+        const pestanaActual = document.querySelector(".modal-tab-btn.modal-tab-activo").dataset.tab;
+        const indexActual = tabs.indexOf(pestanaActual);
+        
+        if (diffX > 0) {
+            // Swipe derecha -> pestaña anterior
+            if (indexActual > 0) {
+                MostrarPestana(tabs[indexActual - 1]);
+            }
+        } else {
+            // Swipe izquierda -> pestaña siguiente
+            if (indexActual < tabs.length - 1) {
+                MostrarPestana(tabs[indexActual + 1]);
+            }
+        }
+    }, false);
+}
+
+// ==================== EVENTOS DE BOTONES TAB ====================
+function ConfigurarBotonesTab() {
+    document.querySelectorAll(".modal-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            MostrarPestana(btn.dataset.tab);
+        });
+    });
 }
 
 function ObtenerDatosFormulario(){
@@ -57,82 +328,37 @@ function ObtenerDatosFormulario(){
 }
 
 //POST de Datos:
-form.addEventListener("submit", async (e)=>{
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
-    /*if(!ValidarCampos()){
-        alert("Complete todos los campos")
-        return;
-    }*/
+
     const data = ObtenerDatosFormulario();
 
     console.log("Datos a enviar:", data);
     try {
         await fetch(`${API_URL}/api/datos`, {
             method: "POST",
-            headers: {"content-type":"application/json"},
+            headers: { "content-type": "application/json" },
             body: JSON.stringify(data)
         });
     } catch (error) {
-        console.error("Error al subir los datos: ",error)
+        console.error("Error al subir los datos: ", error)
     }
     document.getElementById("ModalDatos").classList.add("ModalOculto");
-    RellenarTabla();
+    await CargarDatos();
+    RenderizarAcordeones();
 });
 
 function ValidarCampos() {
-    const form = document.querySelector(".formulario");
     const inputs = form.querySelectorAll("input");
-    
+
     for (let input of inputs) {
         if (input.value.trim() === "") {
             console.warn(`El campo ${input.name} está vacío.`);
             return false;
         }
     }
-    
+
     return true;
-}
-
-//Rellenar campos de Datos:
-
-async function RellenarTabla() { 
-    await CargarDatos();
-    const tbody = document.getElementById("tablaDatos");
-    tbody.innerHTML = ""; // limpiar tabla
-    
-    datos.forEach(dato => {
-        const tr = document.createElement("tr");
-        const td1 = document.createElement("td");
-        td1.textContent=new Date(dato.Fecha).toLocaleDateString("es-PE");
-        tr.appendChild(td1);
-        
-        // Lista de campos según tu tabla
-        const Botones = [
-            "Datos",
-            "Guias",
-            "Gastos"
-        ];
-        
-        Botones.forEach(Nombre => {
-            const td = document.createElement("td");
-            const btn = CrearBotonVista(dato.DatoId, Nombre, `Contenedor${Nombre}`);
-            td.appendChild(btn);
-            tr.appendChild(td);
-        });
-        
-        const tdAcciones = document.createElement("td");
-
-        const btnEditar = CrearBotonEditar(dato.DatoId);
-        tdAcciones.appendChild(btnEditar);
-
-        const btnEliminar = CrearBotonEliminar(dato.DatoId);
-        tdAcciones.appendChild(btnEliminar);
-
-        tr.appendChild(tdAcciones);
-
-        tbody.appendChild(tr);
-    });
 }
 
 function RellenarForm(id){
@@ -195,7 +421,6 @@ function LimpiarForm(){
     document.getElementById("Monto").value = "";
     document.getElementById("Descripcion").value = "";
 }
-
 
 //Rellenar campos de Vista (3 funciones):
 
@@ -425,8 +650,9 @@ function CrearFilaGasto(Monto, Descripcion){
 function CrearBotonEliminar(DatoId){
     const btn = document.createElement("button");
     btn.textContent = "🗑️";
-    btn.classList.add("btn-compacto");  
-    btn.addEventListener("click", async () => {
+    btn.classList.add("btn-compacto");
+    btn.addEventListener("click", async (e) => {
+        e.preventDefault();
         try {
             const response = await fetch(`${API_URL}/api/datos/${DatoId}`, {
                 method: "DELETE"
@@ -435,8 +661,9 @@ function CrearBotonEliminar(DatoId){
             if (response.ok) {
                 const result = await response.json();
                 console.log(result.message);
-                console.log(`Dato con ID ${DatoId} eliminado.`);
-            }else{
+                await CargarDatos();
+                RenderizarAcordeones();
+            } else {
                 const error = await response.json();
                 console.error("Error al eliminar el dato: ", error.message);
             }
@@ -531,7 +758,7 @@ btnAgregar.addEventListener("click", () =>{
 
 });
 
-btnEditar.addEventListener("click", () => {
+btnEditar.addEventListener("click", async () => {
     const data = ObtenerDatosFormulario();
 
     try {
@@ -542,12 +769,13 @@ btnEditar.addEventListener("click", () => {
             },
             body: JSON.stringify(data)
         });
-    }catch (error) {
+    } catch (error) {
         console.error("Error al actualizar el dato: ", error);
     }
 
     document.getElementById("ModalDatos").classList.add("ModalOculto");
-    RellenarTabla();
+    await CargarDatos();
+    RenderizarAcordeones();
 });
 
 btnCancelar.addEventListener("click", () => {
@@ -558,8 +786,8 @@ btnCancelar.addEventListener("click", () => {
 
 document.querySelectorAll(".btnCerrar").forEach(btn => {
     btn.addEventListener("click", () => {
-        const modal = btn.closest(".ModalDatos, .ContenedorDatos, .ContenedorGuias, .ContenedorGastos")
-        if(modal){
+        const modal = btn.closest(".ModalDatos, .modal-visualizacion");
+        if (modal) {
             modal.classList.add("ModalOculto");
         }
     });
@@ -612,9 +840,13 @@ btnAgregarGasto.addEventListener("click", () => {
     CrearFilaGasto(null, null);
 });
 
-async function init(){
-    await RellenarTabla();
+// ==================== INICIALIZACIÓN ====================
+async function init() {
+    await CargarDatos();
+    RenderizarAcordeones();
     BotonesDelForm();
+    ConfigurarBotonesTab();
+    ConfigurarSwipeModal();
 }
 
 document.addEventListener("DOMContentLoaded", init);
