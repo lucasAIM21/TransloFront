@@ -35,87 +35,96 @@
             <div class="modal-contenedor">
                 <button class="btnCerrar btnCerrarJS">X</button>
                 
-                <!-- NAVEGACIÓN DE TABS -->
-                <div class="modal-tabs-header">
-                    <button class="modal-tab-btn modal-tab-activo" data-tab="datos">Datos</button>
-                    <button class="modal-tab-btn" data-tab="guias">Guías</button>
-                    <button class="modal-tab-btn" data-tab="gastos">Gastos</button>
+                <!-- MODAL BODY - CONTENIDO DESPLAZABLE -->
+                <div class="modal-body">
+                    <!-- NAVEGACIÓN DE TABS -->
+                    <div class="modal-tabs-header">
+                        <button class="modal-tab-btn modal-tab-activo" data-tab="datos">Datos</button>
+                        <button class="modal-tab-btn" data-tab="guias">Guías</button>
+                        <button class="modal-tab-btn" data-tab="gastos">Gastos</button>
+                    </div>
+
+                    <!-- CONTENEDOR DE SWIPE -->
+                    <div class="modal-swipe-container">
+                        <!-- TAB: DATOS -->
+                        <div class="modal-tab-content modal-tab-activo" data-tab="datos">
+                            <h3>Datos del Viaje</h3>
+                            <div class="datos-contenido">
+                                <div class="dato-item">
+                                    <label>Fecha:</label>
+                                    <span id="vizFecha"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Origen:</label>
+                                    <span id="vizOrigen"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Destino:</label>
+                                    <span id="vizDestino"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Cliente:</label>
+                                    <span id="vizCliente"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Carga:</label>
+                                    <span id="vizCarga"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Flete:</label>
+                                    <span id="vizFlete"></span>
+                                </div>
+                                <div class="dato-item">
+                                    <label>Viáticos:</label>
+                                    <span id="vizViaticos"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: GUÍAS -->
+                        <div class="modal-tab-content" data-tab="guias">
+                            <h3>Guías</h3>
+                            <div class="guias-contenido">
+                                <div class="guia-seccion">
+                                    <h4>G.R. Remitente</h4>
+                                    <ul id="vizListaGRR"></ul>
+                                </div>
+                                <div class="guia-seccion">
+                                    <h4>G.R. Transportista</h4>
+                                    <ul id="vizListaGRT"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB: GASTOS -->
+                        <div class="modal-tab-content" data-tab="gastos">
+                            <h3>Gastos</h3>
+                            <div class="gastos-contenido">
+                                <div class="gasto-seccion">
+                                    <h4>Combustible</h4>
+                                    <ul id="vizListaCombustible">
+                                        <li>Galones: <span id="vizGalones"></span></li>
+                                        <li>Precio por Galón: <span id="vizPrecioUnit"></span></li>
+                                        <li>Total: <span id="vizPagoTotal"></span></li>
+                                    </ul>
+                                </div>
+                                <div class="gasto-seccion">
+                                    <h4>Peajes</h4>
+                                    <ul id="vizListaPeaje"></ul>
+                                </div>
+                                <div class="gasto-seccion">
+                                    <h4>Gastos Varios</h4>
+                                    <ul id="vizListaGastosVarios"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- CONTENEDOR DE SWIPE -->
-                <div class="modal-swipe-container">
-                    <!-- TAB: DATOS -->
-                    <div class="modal-tab-content modal-tab-activo" data-tab="datos">
-                        <h3>Datos del Viaje</h3>
-                        <div class="datos-contenido">
-                            <div class="dato-item">
-                                <label>Fecha:</label>
-                                <span id="vizFecha"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Origen:</label>
-                                <span id="vizOrigen"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Destino:</label>
-                                <span id="vizDestino"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Cliente:</label>
-                                <span id="vizCliente"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Carga:</label>
-                                <span id="vizCarga"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Flete:</label>
-                                <span id="vizFlete"></span>
-                            </div>
-                            <div class="dato-item">
-                                <label>Viáticos:</label>
-                                <span id="vizViaticos"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB: GUÍAS -->
-                    <div class="modal-tab-content" data-tab="guias">
-                        <h3>Guías</h3>
-                        <div class="guias-contenido">
-                            <div class="guia-seccion">
-                                <h4>G.R. Remitente</h4>
-                                <ul id="vizListaGRR"></ul>
-                            </div>
-                            <div class="guia-seccion">
-                                <h4>G.R. Transportista</h4>
-                                <ul id="vizListaGRT"></ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB: GASTOS -->
-                    <div class="modal-tab-content" data-tab="gastos">
-                        <h3>Gastos</h3>
-                        <div class="gastos-contenido">
-                            <div class="gasto-seccion">
-                                <h4>Combustible</h4>
-                                <ul id="vizListaCombustible">
-                                    <li>Galones: <span id="vizGalones"></span></li>
-                                    <li>Precio por Galón: <span id="vizPrecioUnit"></span></li>
-                                    <li>Total: <span id="vizPagoTotal"></span></li>
-                                </ul>
-                            </div>
-                            <div class="gasto-seccion">
-                                <h4>Peajes</h4>
-                                <ul id="vizListaPeaje"></ul>
-                            </div>
-                            <div class="gasto-seccion">
-                                <h4>Gastos Varios</h4>
-                                <ul id="vizListaGastosVarios"></ul>
-                            </div>
-                        </div>
-                    </div>
+                <!-- MODAL FOOTER - BOTONES DE ACCIONES FIJOS -->
+                <div class="modal-footer">
+                    <button id="btnAccionesEditar" class="btn-accion btn-accion-editar">Editar</button>
+                    <button id="btnAccionesEliminar" class="btn-accion btn-accion-eliminar">Eliminar</button>
                 </div>
             </div>
         </div>

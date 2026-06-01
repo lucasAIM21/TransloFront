@@ -4,6 +4,8 @@ const API_URL = "https://laimserver.duckdns.org";
 let datos = [];
 let datosAgrupados = {}; // { "2025-01": { datos: [...], diasConViajes: {...} } }
 let viajeActualSeleccionado = null;
+let modoEdicion = false; // Controlar si estamos en modo edición
+const token = localStorage.getItem("token");
 
 const form = document.getElementById("formulario");
 const btnAgregar=document.getElementById("btnAgregar");
@@ -155,6 +157,7 @@ function GenerarCalendario(mesAño, grupo) {
 // ==================== MODAL DE VISUALIZACIÓN ====================
 function AbrirModalVisualizacion(datoId) {
     viajeActualSeleccionado = datoId;
+    modoEdicion = false;
     
     // Mostrar el modal
     const modal = document.getElementById("modalVisualizacion");
@@ -167,6 +170,74 @@ function AbrirModalVisualizacion(datoId) {
     LlenarSeccionDatos(datoId);
     LlenarSeccionGuias(datoId);
     LlenarSeccionGastos(datoId);
+}
+
+// ==================== EDITAR VIAJE DESDE MODAL DE ACCIONES ====================
+function EditarViajeDesdeModal(datoId) {
+    // Cerrar modal de visualización
+    document.getElementById("modalVisualizacion").classList.add("ModalOculto");
+    
+    // Establecer modo edición
+    modoEdicion = true;
+    DatoIdActual = datoId;
+    
+    // Limpiar y rellenar formulario
+    LimpiarForm();
+    GRRs = datos.find(d => d.DatoId === datoId).GRR;
+    GRTs = datos.find(d => d.DatoId === datoId).GRT;
+    Peajes = datos.find(d => d.DatoId === datoId).Peajes;
+    Gastos = datos.find(d => d.DatoId === datoId).GastosImprevistos;
+    
+    document.getElementById("TablaGRR").innerHTML="";
+    document.getElementById("TablaGRT").innerHTML="";
+    document.getElementById("TablaPeajes").innerHTML="";
+    document.getElementById("TablaGastosVarios").innerHTML="";
+    
+    RellenarForm(datoId);
+    
+    // Mostrar formulario en modo edición
+    document.getElementById("ModalDatos").classList.remove("ModalOculto");
+    CambiarModoFormulario("edicion");
+}
+
+// ==================== ELIMINAR VIAJE CON CONFIRMACIÓN ====================
+async function EliminarViajeDesdeModal(datoId) {
+    // Mostrar confirmación
+    const confirmacion = confirm("¿Está seguro que desea eliminar este viaje? Esta acción no se puede deshacer.");
+    
+    if (!confirmacion) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/api/datos/${datoId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        
+        if (response.ok) {
+            console.log("Viaje eliminado exitosamente");
+            
+            // Cerrar modal de visualización
+            document.getElementById("modalVisualizacion").classList.add("ModalOculto");
+            
+            // Actualizar datos
+            await CargarDatos();
+            RenderizarAcordeones();
+            
+            // Mostrar mensaje de éxito
+            alert("Viaje eliminado exitosamente");
+        } else {
+            const error = await response.json();
+            console.error("Error al eliminar el viaje:", error.message);
+            alert("Error al eliminar el viaje: " + (error.message || "Intente nuevamente"));
+        }
+    } catch (error) {
+        console.error("Error al eliminar el viaje:", error);
+        alert("Error al eliminar el viaje. Intente nuevamente.");
+    }
 }
 
 function LlenarSeccionDatos(datoId) {
@@ -307,6 +378,26 @@ function ConfigurarBotonesTab() {
     });
 }
 
+// ==================== CONTROLAR MODO DEL FORMULARIO ====================
+function CambiarModoFormulario(modo) {
+    const divBtnGuardar = document.getElementById("DivBtnGuardar");
+    const divBtnEditar = document.getElementById("DivBtnEditar");
+    
+    if (modo === "agregar") {
+        // Modo Agregar: mostrar Guardar y Cancelar, ocultar Editar
+        divBtnGuardar.classList.remove("ModalOculto");
+        divBtnEditar.classList.add("ModalOculto");
+        document.getElementById("ModalDatos").querySelector("h2").textContent = "Agregar Viaje";
+        modoEdicion = false;
+    } else if (modo === "edicion") {
+        // Modo Edición: mostrar Editar y Cancelar, ocultar Guardar
+        divBtnGuardar.classList.add("ModalOculto");
+        divBtnEditar.classList.remove("ModalOculto");
+        document.getElementById("ModalDatos").querySelector("h2").textContent = "Editar Viaje";
+        modoEdicion = true;
+    }
+}
+
 function ObtenerDatosFormulario(){
     
     const data = Object.fromEntries(new FormData(form));
@@ -337,7 +428,10 @@ form.addEventListener("submit", async (e) => {
     try {
         await fetch(`${API_URL}/api/datos`, {
             method: "POST",
-            headers: { "content-type": "application/json" },
+            headers: {
+                "content-type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
             body: JSON.stringify(data)
         });
     } catch (error) {
@@ -750,10 +844,11 @@ function OcultarForms(){
 btnAgregar.addEventListener("click", () =>{
 
     LimpiarForm();
+    modoEdicion = false;
+    DatoIdActual = null;
 
     const modal = document.getElementById("ModalDatos");
-    document.getElementById("DivBtnGuardar").classList.remove("ModalOculto");
-    document.getElementById("DivBtnEditar").classList.add("ModalOculto");
+    CambiarModoFormulario("agregar");
     modal.classList.remove("ModalOculto");
 
 });
@@ -761,25 +856,45 @@ btnAgregar.addEventListener("click", () =>{
 btnEditar.addEventListener("click", async () => {
     const data = ObtenerDatosFormulario();
 
+    console.log("Datos a actualizar:", data);
+    
     try {
-        fetch(`${API_URL}/api/datos/${DatoIdActual}`, {
+        const response = await fetch(`${API_URL}/api/datos/${DatoIdActual}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });
+        
+        if (response.ok) {
+            console.log("Viaje actualizado exitosamente");
+            alert("Viaje actualizado exitosamente");
+            
+            // Limpiar y cerrar
+            LimpiarForm();
+            document.getElementById("ModalDatos").classList.add("ModalOculto");
+            modoEdicion = false;
+            
+            // Actualizar datos
+            await CargarDatos();
+            RenderizarAcordeones();
+        } else {
+            const error = await response.json();
+            console.error("Error al actualizar el viaje:", error);
+            alert("Error al actualizar el viaje: " + (error.message || "Intente nuevamente"));
+        }
     } catch (error) {
-        console.error("Error al actualizar el dato: ", error);
+        console.error("Error al actualizar el viaje:", error);
+        alert("Error al actualizar el viaje. Intente nuevamente.");
     }
-
-    document.getElementById("ModalDatos").classList.add("ModalOculto");
-    await CargarDatos();
-    RenderizarAcordeones();
 });
 
 btnCancelar.addEventListener("click", () => {
     LimpiarForm();
+    modoEdicion = false;
+    DatoIdActual = null;
     const modal = document.getElementById("ModalDatos");
     modal.classList.add("ModalOculto");
 });
@@ -791,6 +906,19 @@ document.querySelectorAll(".btnCerrar").forEach(btn => {
             modal.classList.add("ModalOculto");
         }
     });
+});
+
+// ==================== EVENTOS PARA BOTONES DE ACCIONES ====================
+document.getElementById("btnAccionesEditar").addEventListener("click", () => {
+    if (viajeActualSeleccionado) {
+        EditarViajeDesdeModal(viajeActualSeleccionado);
+    }
+});
+
+document.getElementById("btnAccionesEliminar").addEventListener("click", () => {
+    if (viajeActualSeleccionado) {
+        EliminarViajeDesdeModal(viajeActualSeleccionado);
+    }
 });
 
 function BotonesDelForm(){
