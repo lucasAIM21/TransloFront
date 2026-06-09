@@ -6,6 +6,7 @@ let datosAgrupados = {}; // { "2025-01": { datos: [...], diasConViajes: {...} } 
 let viajeActualSeleccionado = null;
 let modoEdicion = false; // Controlar si estamos en modo edición
 const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("usuario"));
 
 const form = document.getElementById("formulario");
 const btnAgregar=document.getElementById("btnAgregar");
@@ -26,6 +27,13 @@ let Peajes = [];
 let Gastos = [];
 
 let DatoIdActual = null;
+
+function CargarNombreEmpresa() {
+    console.log("Nombre de la empresa:", user.empresa);
+    if (user && user.empresa) {
+        document.getElementById("NombreEmpresa").textContent = user.empresa;
+    }
+}
 
 
 async function CargarDatos() {
@@ -49,7 +57,7 @@ function AgruparDatosPorMes() {
     datosOrdenados.forEach(viaje => {
         const fecha = new Date(viaje.Fecha);
         const mesAño = fecha.toISOString().slice(0, 7); // "2025-01"
-        const dia = fecha.getDate();
+        const dia = fecha.getUTCDate();
         
         if (!datosAgrupados[mesAño]) {
             datosAgrupados[mesAño] = {
@@ -970,6 +978,7 @@ btnAgregarGasto.addEventListener("click", () => {
 
 // ==================== INICIALIZACIÓN ====================
 async function init() {
+    CargarNombreEmpresa();
     await CargarDatos();
     RenderizarAcordeones();
     BotonesDelForm();

@@ -71,8 +71,8 @@ formularioLogin.addEventListener("submit", async (e) => {
         console.log("Login exitoso:", result);
         alert("¡Bienvenido!");
         
-        // Redirigir a la página principal
-        window.location.href = "views/Principal.html";
+        // Redirigir a la página de inicio
+        window.location.href = "views/Inicio.html";
         
     } catch (error) {
         console.error("Error en el login:", error.message);

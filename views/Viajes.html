@@ -3,22 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRANSLOGISTICA - Principal</title>
+    <title>TRANSLOGISTICA - Viajes</title>
     <link rel="stylesheet" href="../styles/styles_principal.css">
     <link rel="stylesheet" href="../styles/icons.css">
     <link rel="stylesheet" href="../styles/principal_styles.css">
 </head>
 <body class="bodyPrincipal">
+    <!-- OVERLAY PARA MENU -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- SIDEBAR/MENU DESPLEGABLE -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menú</h2>
+            <button class="sidebar-close" id="sidebarClose">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="../views/Inicio.html" class="sidebar-link">Inicio</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Resumen General</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="../views/Viajes.html" class="sidebar-link">Viajes</a>
+            </li>
+            <li class="sidebar-item" id="sidebarUsuarios" style="display: none;">
+                <a href="../views/Usuarios.html" class="sidebar-link">Usuarios</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">Configuración</a>
+            </li>
+        </ul>
+    </nav>
+
     <!-- HEADER -->
     <header class="headerPrincipal">
         <div class="headerContenido">
-            <h1 class="logoHeader">TRANSLOGISTICA</h1>
+            <button class="btn-hamburger" id="btnHamburger">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <h1 class="logoHeader">SATRAP</h1>
             <button class="btnLogout" id="btnLogout">Cerrar Sesión</button>
         </div>
     </header>
 
-    <div class="contenedor">
-        <h2>TRANSLOGISTICA</h2>
+    <div class="main-wrapper">
+        <div class="contenedor">
+        <h2 id="NombreEmpresa">a</h2>
         <br>
         <div class="btnCentrado">
             <button type="submit" id="btnAgregar">Agregar Viaje</button>
@@ -277,6 +318,8 @@
         </div>
 
     </div>
+    </div>
+<script src="../Scripts/sidebar.js"></script>
 <script src="../Scripts/js.js"></script>
 </body>
 </html>
