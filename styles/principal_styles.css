@@ -518,7 +518,6 @@
     border: none;
     color: white;
     cursor: pointer;
-    display: none;
     align-items: center;
     justify-content: center;
     padding: 8px;
@@ -587,8 +586,8 @@
 
 @media (max-width: 480px) {
     .sidebar {
-        width: 100%;
-        left: -100%;
+        width: 280px;
+        left: -280px;
         top: 0;
         height: 100vh;
     }
@@ -630,13 +629,6 @@
 }
 
 @media (max-width: 480px) {
-    .sidebar {
-        width: 60px;
-    }
-
-    .main-wrapper {
-        margin-left: 60px;
-    }
 
     .dato-item span,
     .guia-seccion,
